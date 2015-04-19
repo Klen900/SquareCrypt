@@ -3,6 +3,7 @@ import java.awt.BasicStroke;
 import java.awt.BorderLayout;
 import java.awt.Color;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
@@ -10,6 +11,8 @@ import javax.swing.JTextField;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.File;
 
 public class SquareCryptController extends JPanel{
 	
@@ -47,7 +50,7 @@ public class SquareCryptController extends JPanel{
 	//Compute the best block size for the current width and height.
 	private int	computeBlockSize(){
 		
-		return getHeight()/300;
+		return getWidth()/255;
 	}
 	
 	//Paint the game.
@@ -75,7 +78,7 @@ public class SquareCryptController extends JPanel{
 				   
                         else{
                         	
-                        paintBlock(g,row*computeBlockSize(),col*computeBlockSize(),computeBlockSize(),Color.white);	
+                            paintBlock(g,row*computeBlockSize(),col*computeBlockSize(),computeBlockSize(),Color.white);	
                         
                       }
 			}
@@ -93,5 +96,15 @@ public class SquareCryptController extends JPanel{
 				//g.drawRect(col, row, blockSize,blockSize);
 				
 	}
+
+	public void saveImage(){
+		
+		BufferedImage bi = new BufferedImage(this.getSize().width, this.getSize().height, BufferedImage.TYPE_INT_ARGB); 
+		Graphics g = bi.createGraphics();
+		this.paint(g);  //this == JComponent
+		g.dispose();
+		try{ImageIO.write(bi,"png",new File("test.png"));}catch (Exception e) {}
+	}
+	
 
 }
