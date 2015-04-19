@@ -4,7 +4,7 @@ public class SquareCryptModel {
 	
 	//instance variables
 	int[][] matrix;
-	int row= 255;
+	int row= 127;
 	int col = 255; 
 	int count = 0;
 
@@ -32,10 +32,10 @@ public class SquareCryptModel {
 			
 			for(int j =0;j<row; j++ ){
 				
-				System.out.print(matrix[i][j] +" ");
+				//System.out.print(matrix[i][j] +" ");
 
 			}
-			System.out.print("\n");
+			//System.out.print("\n");
 		}
 	}
 	
@@ -50,15 +50,17 @@ public class SquareCryptModel {
 			
 			x =  (int)chr;
 			
-			y = (int)Math.floor(Math.random()*255);
+			y = (int)Math.floor(Math.random()*col);
+			
 			
 			//for duplicates
             while(matrix[x][y] != 0){
             	
-            	y = (int)Math.floor(Math.random()*255);
+            	y = (int)Math.floor(Math.random()*col);
+            	System.out.println("y : " + y );
 			}
 
-			System.out.print( "x " + x + "y " + y);
+			//System.out.print( "x " + x + "y " + y);
 			matrix[x][y] = count;
 			
 			//System.out.print( Character.getNumericValue(chr)+ " " );
