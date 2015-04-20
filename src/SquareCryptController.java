@@ -64,7 +64,7 @@ public class SquareCryptController extends JPanel{
 		
 		//model.matrix[0][1]=34;
 		
-		model.getMatrixIndecies(str);
+	
 
 		for(int row=0; row< model.row; row+=1){
 			

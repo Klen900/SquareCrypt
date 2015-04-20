@@ -103,6 +103,7 @@ public class SquareCryptView extends JPanel implements ActionListener{
 			
 			controller.setStr(in);
 			System.out.println("controller " + controller.getStr());
+			model.getMatrixIndecies(in);
 			controller.repaint();
 			System.out.println(input.getText());
 		}
@@ -123,10 +124,14 @@ public class SquareCryptView extends JPanel implements ActionListener{
 		 
 		 
 		int textLngth = input.getText().length();
-		 System.out.println(input.getText().substring(textLngth-1, textLngth));
+		
+		
+		 System.out.println("text Length " + textLngth);
 		 in = input.getText().substring(textLngth-1, textLngth);
 		 controller.setStr(in);
 		 System.out.println("text" +  controller.getStr());
+		 
+		 model.getMatrixIndecies(in);
 		 controller.repaint();
      }
 
@@ -136,7 +141,8 @@ public class SquareCryptView extends JPanel implements ActionListener{
     	 System.out.println("DELETE DELETE DELETE");
     	 
  		int textLngth = input.getText().length();
-    	 
+		 System.out.println("text Length " + textLngth);
+
     	 
     	 //search through for position text.Lngth()+1
     	 for(int i=0; i<model.row; i++){
@@ -144,6 +150,7 @@ public class SquareCryptView extends JPanel implements ActionListener{
  				
  				if(model.matrix[i][j] == textLngth){
  					
+ 					System.out.println("does it go in here?");
  					model.matrix[i][j] = 0;
  					break;
  				}
@@ -155,6 +162,7 @@ public class SquareCryptView extends JPanel implements ActionListener{
     	 //change to 0
     	 //repaint
 		 controller.repaint();
+		 model.count = model.count --;
     	 
      }
 

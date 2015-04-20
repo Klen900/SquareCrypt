@@ -66,6 +66,7 @@ public class SquareCryptModel {
 			//System.out.print( Character.getNumericValue(chr)+ " " );
 			//System.out.println(matrix[x][y] );
 			count ++;
+			System.out.println(count);
 		}
 		return matrix;
 	}
