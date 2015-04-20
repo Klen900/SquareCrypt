@@ -31,7 +31,8 @@ public class SquareCryptView extends JPanel implements ActionListener{
 	JPanel anotherPanel;
 	
 	SquareCryptController controller = new SquareCryptController();
-
+	SquareCryptModel model = controller.getModel();
+		
 	
 	//constructor
 	public SquareCryptView(){
@@ -131,9 +132,28 @@ public class SquareCryptView extends JPanel implements ActionListener{
 
      @Override
      public void removeUpdate(DocumentEvent de) {
+    	    
+    	 System.out.println("DELETE DELETE DELETE");
+    	 
  		int textLngth = input.getText().length();
-    	 in = input.getText().substring(textLngth-1, textLngth);
-		 controller.setStr(in);
+    	 
+    	 
+    	 //search through for position text.Lngth()+1
+    	 for(int i=0; i<model.row; i++){
+ 			for(int j =0;j<model.col; j++ ){
+ 				
+ 				if(model.matrix[i][j] == textLngth){
+ 					
+ 					model.matrix[i][j] = 0;
+ 					break;
+ 				}
+ 				
+ 	
+ 			}
+    	 }
+    	 //find x,y position of in
+    	 //change to 0
+    	 //repaint
 		 controller.repaint();
     	 
      }
@@ -143,6 +163,7 @@ public class SquareCryptView extends JPanel implements ActionListener{
      }
 
 	});
+	
 	}
 
 }

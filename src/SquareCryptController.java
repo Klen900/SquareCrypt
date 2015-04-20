@@ -36,6 +36,12 @@ public class SquareCryptController extends JPanel{
 
 	SquareCryptModel model = new SquareCryptModel();
 	
+	public SquareCryptModel getModel(){
+		
+		return model;
+	}
+	
+	
 	public SquareCryptController() {
 		
 		super();
