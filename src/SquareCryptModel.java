@@ -1,4 +1,3 @@
-
 public class SquareCryptModel {
 	
 	
@@ -39,6 +38,19 @@ public class SquareCryptModel {
 		}
 	}
 	
+	public Boolean isFull(int indX){
+		
+		for(int j = 0; j<255; j++){
+			
+			if(matrix[indX][j]==0){
+				return false;
+			}
+			
+		}
+		return true;
+		
+	}
+	
 	public int[][] getMatrixIndecies(String str){
 
 		char chr;
@@ -54,13 +66,15 @@ public class SquareCryptModel {
 			
 			
 			//for duplicates
+			if(!isFull(x)){
+				
             while(matrix[x][y] != 0){
             	
             	y = (int)Math.floor(Math.random()*col);
             	System.out.println("y : " + y );
 			}
-
-			//System.out.print( "x " + x + "y " + y);
+			}
+			System.out.print( "x " + x + "y " + y);
 			matrix[x][y] = count;
 			
 			//System.out.print( Character.getNumericValue(chr)+ " " );
