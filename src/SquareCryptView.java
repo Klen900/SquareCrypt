@@ -31,6 +31,8 @@ public class SquareCryptView extends JPanel implements ActionListener{
 	//pixel size
 	//delete was a challenge! because it was taking the last char instead of ...problem with count wasn't updating correctly
 	//what string was passed to model?
+	//buffered image ,saves the whole panel. why?
+	
 	JTextArea input = new JTextArea(20,20); 
 
 	JButton auto; 
@@ -177,17 +179,18 @@ public class SquareCryptView extends JPanel implements ActionListener{
 			public void changedUpdate(DocumentEvent de) {
 			}
 
-		});
+		}); 
 
 	}
 	
 	public void saveImage(){
 		
-		BufferedImage bi = new BufferedImage(controller.getSize().width, controller.getSize().height, BufferedImage.TYPE_INT_ARGB); 
+		BufferedImage bi = new BufferedImage(this.getSize().width, this.getSize().height, BufferedImage.TYPE_INT_ARGB); 
+		bi = bi.getSubimage( 100, 500,controller.getSize().width, controller.getSize().height-200);
 		Graphics g = bi.createGraphics();
 		this.paint(g);  //this == JComponent
 		g.dispose();
-		try{ImageIO.write(bi,"png",new File("test.png"));}catch (Exception e) {}
+		try{ImageIO.write(bi,"png",new File("image.png"));}catch (Exception e) {}
 	}
 
 }

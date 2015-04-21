@@ -87,7 +87,7 @@ public class SquareCryptController extends JPanel{
 				   
                         else{
                         	
-                            paintBlock(g,row*computeBlockSize(),col*computeBlockSize(),computeBlockSize(),Color.yellow);	
+                            paintBlock(g,row*computeBlockSize(),col*computeBlockSize(),computeBlockSize(),Color.white);	
                         
                       }
 			}
