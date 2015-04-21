@@ -1,9 +1,5 @@
 import javax.swing.JFrame;
 
-/**
- * Command line version of the GUI Tetris game.
- * @author ponbarry
- */
 public class SquareCryptApplication
 {
 	

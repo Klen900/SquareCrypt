@@ -6,10 +6,17 @@ public class SquareCryptModel {
 	int row= 127;
 	int col = 255; 
 	int count = 0;
+	Boolean isFull = false;
 
 	//constructor
 	SquareCryptModel(){
+ 
+		makeNewModel();
 
+	}
+	
+	public void makeNewModel(){
+		
 		matrix = new int[row][col];
 
 		//filling the matrix with RGB color = white.
@@ -22,7 +29,6 @@ public class SquareCryptModel {
 		}
 		
 	}
-	
 	//print out the matrix
 	
 	public void  printMatrix(){
@@ -47,6 +53,7 @@ public class SquareCryptModel {
 			}
 			
 		}
+		
 		return true;
 		
 	}
@@ -71,16 +78,19 @@ public class SquareCryptModel {
             while(matrix[x][y] != 0){
             	
             	y = (int)Math.floor(Math.random()*col);
-            	System.out.println("y : " + y );
+            	
 			}
+			}else{
+				isFull = true;
+				//makeNewModel();
 			}
-			System.out.print( "x " + x + "y " + y);
+			
 			matrix[x][y] = count;
 			
 			//System.out.print( Character.getNumericValue(chr)+ " " );
 			//System.out.println(matrix[x][y] );
 			count ++;
-			System.out.println(count);
+			
 		}
 		return matrix;
 	}

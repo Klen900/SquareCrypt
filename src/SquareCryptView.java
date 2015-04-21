@@ -1,13 +1,17 @@
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -22,156 +26,168 @@ import java.util.TimerTask;
 
 public class SquareCryptView extends JPanel implements ActionListener{
 
+	//challenges
+	//which model is the controller talking to when creating the second one?
+	//pixel size
+	//delete was a challenge! because it was taking the last char instead of ...problem with count wasn't updating correctly
+	//what string was passed to model?
 	JTextArea input = new JTextArea(20,20); 
 
 	JButton auto; 
 	JButton goButton;
 	JButton save;
-	JPanel panel;
+	JPanel panel = new JPanel();
 	JPanel anotherPanel;
-	
+	JPanel imagePanel;
+
 	SquareCryptController controller = new SquareCryptController();
 	SquareCryptModel model = controller.getModel();
-		
-	
+
+
 	//constructor
 	public SquareCryptView(){
-		
+
 		mainPanel();
 	}
-	
+
 	public void mainPanel(){
+		
+
+		
+
 		anotherPanel = new JPanel();
 		anotherPanel.setLayout(new BoxLayout(anotherPanel, BoxLayout.X_AXIS));
-		
+
 		//setLayout(new GridLayout(3,1));
 		auto = new JButton("Update Automatically");
 		auto.addActionListener(this);
 		save = new JButton("save");
 		save.addActionListener(this);
-		 goButton = new JButton("Go");
-		 goButton.addActionListener(this);
+		goButton = new JButton("Go");
+		goButton.addActionListener(this);
 		setLayout(new BorderLayout());
-		inputPanel();
+
+
 		anotherPanel.add(goButton);
 		anotherPanel.add(auto);
 		anotherPanel.add(save);
 		
-		//this.add(inputPanel());
+		imagePanel = new JPanel();
+		imagePanel.setLayout(new GridLayout(1,2));
+		imagePanel.add(controller);
+		
 		this.add(input,BorderLayout.NORTH);
-		this.add(controller,BorderLayout.CENTER);
+		this.add(imagePanel,BorderLayout.CENTER);
+		//this.add(controller,BorderLayout.CENTER);
 		this.add(anotherPanel,BorderLayout.SOUTH);
 	}
-	
-	private void inputPanel(){
-		 panel = new JPanel();
-		// input.setBounds(10, 231, 370, 22);
-		 //input.setPreferredSize(new Dimension(getWidth(), getHeight()/3));
-		
-		//controller.setPreferredSize(new Dimension(500,200));
-		
-		//panel.add(input);
-		//panel.setBackground(Color.yellow);
-		//panel.setPreferredSize(new Dimension(getWidth(), getHeight()/3));
-		
-		//return panel;
-		
-	}
-	
-	
-	
-//	private String getInstantText(){
-//		
-//		
-//	}
-	
+
+
 	//Handle the key-pressed event.
-	
+
 	public void actionPerformed(ActionEvent e){
-		
+
 		JButton buttonPressed = (JButton) e.getSource();
 		String in;
 		if (buttonPressed.equals(auto)){
-			
-		
+
+
 			autoUpdate();
-			
+
 		}
 		else if (buttonPressed.equals(goButton)){
-			
+
 			in = input.getText();
-			
+
 			controller.setStr(in);
-			System.out.println("controller " + controller.getStr());
 			model.getMatrixIndecies(in);
 			controller.repaint();
-			System.out.println(input.getText());
 		}
 		else if (buttonPressed.equals(save)){
-			controller.saveImage();
-			
+			saveImage();
+
 		}
-				
-		
+
+
 	}
 
 	public void autoUpdate(){
-	input.getDocument().addDocumentListener(new DocumentListener(){
+		input.getDocument().addDocumentListener(new DocumentListener(){
 
-		String in;
-	 @Override
-     public void insertUpdate(DocumentEvent de) {
-		 
-		 
-		int textLngth = input.getText().length();
-		
-		
-		 System.out.println("text Length " + textLngth);
-		 in = input.getText().substring(textLngth-1, textLngth);
-		 controller.setStr(in);
-		 System.out.println("text" +  controller.getStr());
-		 
-		 model.getMatrixIndecies(in);
-		 controller.repaint();
-     }
+			String in;
+			@Override
+			public void insertUpdate(DocumentEvent de) {
 
-     @Override
-     public void removeUpdate(DocumentEvent de) {
-    	    
-    	 System.out.println("DELETE DELETE DELETE");
-    	 
- 		int textLngth = input.getText().length();
-		 System.out.println("text Length " + textLngth);
 
-    	 
-    	 //search through for position text.Lngth()+1
-    	 for(int i=0; i<model.row; i++){
- 			for(int j =0;j<model.col; j++ ){
- 				
- 				if(model.matrix[i][j] == textLngth){
- 					
- 					System.out.println("does it go in here?");
- 					model.matrix[i][j] = 0;
- 					break;
- 				}
- 				
- 	
- 			}
-    	 }
-    	 //find x,y position of in
-    	 //change to 0
-    	 //repaint
-		 controller.repaint();
-		 model.count = model.count --;
-    	 
-     }
+				int textLngth = input.getText().length();
+				in = input.getText().substring(textLngth-1, textLngth);
+				controller.setStr(in);
 
-     @Override
-     public void changedUpdate(DocumentEvent de) {
-     }
+				if(!model.isFull){
 
-	});
+					model.getMatrixIndecies(in);
+					controller.repaint();
+
+				}
+				else{
+
+					System.out.println("inside else");
+					controller = new SquareCryptController();
+					model = controller.getModel();
+
+					// model = new SquareCryptModel();
+					model.getMatrixIndecies(in);
+					validate();
+					//controller.getModel().getMatrixIndecies(in);
+					// System.out.println("in " + in);
+
+					imagePanel.add(controller);
+					controller.repaint();
+
+				}
+			}
+
+			@Override
+			public void removeUpdate(DocumentEvent de) {
+
+				int textLngth = input.getText().length();
+
+				//search through for position text.Lngth()+1
+				for(int i=0; i<model.row; i++){
+					for(int j =0;j<model.col; j++ ){
+
+						if(model.matrix[i][j] == textLngth){
+
+							model.matrix[i][j] = 0;
+							break;
+						}
+
+
+					}
+				}
+				//find x,y position of in
+				//change to 0
+				//repaint
+				controller.repaint();
+				model.count = model.count --;
+
+			}
+
+			@Override
+			public void changedUpdate(DocumentEvent de) {
+			}
+
+		});
+
+	}
 	
+	public void saveImage(){
+		
+		BufferedImage bi = new BufferedImage(controller.getSize().width, controller.getSize().height, BufferedImage.TYPE_INT_ARGB); 
+		Graphics g = bi.createGraphics();
+		this.paint(g);  //this == JComponent
+		g.dispose();
+		try{ImageIO.write(bi,"png",new File("test.png"));}catch (Exception e) {}
 	}
 
 }

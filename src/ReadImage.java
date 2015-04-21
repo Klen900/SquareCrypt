@@ -25,7 +25,7 @@ public class ReadImage {
 		        
 		        //&& (c.getGreen()!=0 || c.getGreen()!=255 )&& (c.getBlue()!=0 || c.getBlue()!=255)
 				if( c.getRed()!=0 && c.getRed()!=255 && c.getGreen()!=0 && c.getGreen()!=255 && c.getBlue()!=0 && c.getBlue()!=255  ){
-					 System.out.println("it's in!");
+					
 					chars[c.getBlue()] = c.getRed();
 
 				}
@@ -36,7 +36,8 @@ public class ReadImage {
 
 	} catch (IOException e) {
 		
-		e.printStackTrace();
+		//e.printStackTrace();
+		System.out.print("Image not found");
 	}
 
 }
