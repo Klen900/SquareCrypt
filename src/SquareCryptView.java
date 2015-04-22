@@ -106,7 +106,7 @@ public class SquareCryptView extends JPanel implements ActionListener{
 			controller.repaint();
 		}
 		else if (buttonPressed.equals(save)){
-			saveImage();
+			controller.saveImage();
 
 		}
 
@@ -183,14 +183,14 @@ public class SquareCryptView extends JPanel implements ActionListener{
 
 	}
 	
-	public void saveImage(){
-		
-		BufferedImage bi = new BufferedImage(this.getSize().width, this.getSize().height, BufferedImage.TYPE_INT_ARGB); 
-		bi = bi.getSubimage( 100, 500,controller.getSize().width, controller.getSize().height-200);
-		Graphics g = bi.createGraphics();
-		this.paint(g);  //this == JComponent
-		g.dispose();
-		try{ImageIO.write(bi,"png",new File("image.png"));}catch (Exception e) {}
-	}
+//	public void saveImage(){
+//		
+//		BufferedImage bi = new BufferedImage(this.getSize().width, this.getSize().height, BufferedImage.TYPE_INT_ARGB); 
+//		bi = bi.getSubimage( 100, 500,controller.getSize().width, controller.getSize().height-200);
+//		Graphics g = bi.createGraphics();
+//		this.paint(g);  //this == JComponent
+//		g.dispose();
+//		try{ImageIO.write(bi,"png",new File("image.png"));}catch (Exception e) {}
+//	}
 
 }

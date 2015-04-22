@@ -9,7 +9,7 @@ import javax.imageio.ImageIO;
 
 public class Chunkify extends Thread {
 
-	int[] chars = new int[255];
+	public int[] chars = new int[255];
 	String str ="";
 	
 	int indexStart, indexStop;
@@ -19,16 +19,19 @@ public class Chunkify extends Thread {
 	public Chunkify(int indexStart,int indexStop){
 		this.indexStart = indexStart;
 		this.indexStop = indexStop;
+	
 		
 	}
 	@Override
 	public void run() {
 		try {
+			
 				readChunk();
 				System.out.println("alive " + indexStart);
 			
 		} catch (InterruptedException e) {
 		}
+		
 	}
 
 	private synchronized void readChunk() throws InterruptedException {
@@ -38,8 +41,10 @@ public class Chunkify extends Thread {
 	try {
 		bi = ImageIO.read(new File("image.png")); 
 		
-		for (int x = indexStop; x <indexStart; x--) {
-		    for (int y = 0; y < bi.getWidth(); y++) {
+		for (int x = 0; x <bi.getWidth(); x++) {
+			System.out.println("loop x");
+			//y goes down by row
+		    for (int y = 0; y < bi.getHeight() -indexStop; y++) {
 		    	
 		        Color c = new Color(bi.getRGB(x, y));
 		        
@@ -50,6 +55,7 @@ public class Chunkify extends Thread {
 		        //&& (c.getGreen()!=0 || c.getGreen()!=255 )&& (c.getBlue()!=0 || c.getBlue()!=255)
 				if( c.getRed()!=0 && c.getRed()!=255 && c.getGreen()!=0 && c.getGreen()!=255 && c.getBlue()!=0 && c.getBlue()!=255  ){
 					
+					System.out.println("inside if");
 					chars[c.getBlue()] = c.getRed();
 
 				}

@@ -11,18 +11,22 @@ public class ReadImage {
 	
 	public static void main(String[] args){
 	
-
-		Chunkify chunkified1 = new Chunkify(0,50);
-		Chunkify chunkified2 = new Chunkify(50,100);
-		Chunkify chunkified3 = new Chunkify(100,150);
-		Chunkify chunkified4 = new Chunkify(150,200);
+//int[] chars1 = new int[255];
+		//x=510 × y= 439
+		Chunkify chunkified1 = new Chunkify(0,330);
+     	Chunkify chunkified2 = new Chunkify(109,220);
+		Chunkify chunkified3 = new Chunkify(219,110);
+		Chunkify chunkified4 = new Chunkify(329,439);
 		
 		chunkified1.run();
-		chunkified2.run();
-		chunkified3.run();
-		chunkified4.run();
+//		chunkified2.run();
+//		chunkified3.run();
+//		chunkified4.run();
 		
-		System.out.println("chars "+chunkified1.getCharValue());
+//		System.out.println("chars "+chunkified1.getCharValue());
+//		System.out.println("chars "+chunkified2.getCharValue());
+//		System.out.println("chars "+chunkified3.getCharValue());
+		System.out.println("chars "+chunkified4.getCharValue());
 		
 	}
 }

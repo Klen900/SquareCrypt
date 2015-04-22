@@ -106,7 +106,15 @@ public class SquareCryptController extends JPanel{
 				
 	}
 
-
+	public void saveImage(){
+		
+		BufferedImage bi = new BufferedImage(this.getSize().width, this.getSize().height, BufferedImage.TYPE_INT_ARGB); 
+		//bi = bi.getSubimage( 100, 500,this.getSize().width, this.getSize().height-200);
+		Graphics g = bi.createGraphics();
+		this.paint(g);  //this == JComponent
+		g.dispose();
+		try{ImageIO.write(bi,"png",new File("image.png"));}catch (Exception e) {}
+	}
 	
 
 }
