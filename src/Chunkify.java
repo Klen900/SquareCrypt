@@ -1,4 +1,5 @@
 import java.awt.Color;
+
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -11,30 +12,40 @@ public class Chunkify extends Thread {
 	int[] chars = new int[255];
 	String str ="";
 	
+	int indexStart, indexStop;
+	BufferedImage bi;
 	
+	//constructor
+	public Chunkify(int indexStart,int indexStop){
+		this.indexStart = indexStart;
+		this.indexStop = indexStop;
+		
+	}
 	@Override
 	public void run() {
 		try {
-			while (true) {
-				//putMessage();
-				//sleep(5000);
-			}
+				readChunk();
+				System.out.println("alive " + indexStart);
+			
 		} catch (InterruptedException e) {
 		}
 	}
 
-	private synchronized void readChunk(int indexStart,int indexStop) throws InterruptedException {
+	private synchronized void readChunk() throws InterruptedException {
 		
-    BufferedImage bi;
+   
 	int countloop=0;
 	try {
-		bi = ImageIO.read(new File("test.png")); 
+		bi = ImageIO.read(new File("image.png")); 
 		
-		for (int x = indexStart; x <indexStop; x++) {
+		for (int x = indexStop; x <indexStart; x--) {
 		    for (int y = 0; y < bi.getWidth(); y++) {
+		    	
 		        Color c = new Color(bi.getRGB(x, y));
+		        
 		        System.out.println("red=="+c.getRed()+" green=="+c.getGreen()+"    blue=="+c.getBlue()+"  countloop="+countloop++);      
 		        System.out.println("y"+ y);
+		        System.out.println("x"+ x);
 		        
 		        //&& (c.getGreen()!=0 || c.getGreen()!=255 )&& (c.getBlue()!=0 || c.getBlue()!=255)
 				if( c.getRed()!=0 && c.getRed()!=255 && c.getGreen()!=0 && c.getGreen()!=255 && c.getBlue()!=0 && c.getBlue()!=255  ){
@@ -46,11 +57,16 @@ public class Chunkify extends Thread {
 		    }
 		   
 		}
+		
+		getCharValue();
+		System.out.println("done");
+
 
 	} catch (IOException e) {
 		
 		//e.printStackTrace();
-		System.out.print("Image not found");
+		System.out.println("Image not found");
+		
 	}
 
 }
