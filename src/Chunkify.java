@@ -10,15 +10,17 @@ import javax.imageio.ImageIO;
 public class Chunkify extends Thread {
 
 	public int[] chars = new int[255];
+	//public int[] chars;
 	String str ="";
 	
 	int indexStart, indexStop;
 	BufferedImage bi;
 	
 	//constructor
-	public Chunkify(int indexStart,int indexStop){
+	public Chunkify(int indexStart,int indexStop, int[]chars){
 		this.indexStart = indexStart;
 		this.indexStop = indexStop;
+		this.chars = chars;
 	
 		
 	}
@@ -57,6 +59,8 @@ public class Chunkify extends Thread {
 					
 					System.out.println("inside if");
 					chars[c.getBlue()] = c.getRed();
+					
+					
 
 				}
 				
