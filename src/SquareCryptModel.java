@@ -82,6 +82,7 @@ public class SquareCryptModel {
 			}
 			}else{
 				isFull = true;
+				count = 0;
 				//makeNewModel();
 			}
 			

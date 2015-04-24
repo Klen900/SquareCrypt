@@ -9,7 +9,7 @@ import javax.imageio.ImageIO;
 
 public class Chunkify extends Thread {
 
-	public int[] chars = new int[255];
+	public int [] chars = new int[200];
     //public int[] chars;
 	String str ="";
 	
@@ -17,7 +17,7 @@ public class Chunkify extends Thread {
 	BufferedImage bi;
 	
 	//constructor
-	public Chunkify(int indexStart,int indexStop, int[]xhars){
+	public Chunkify(int indexStart,int indexStop, int[]chars){
 		this.indexStart = indexStart;
 		this.indexStop = indexStop;
 		this.chars = chars;
