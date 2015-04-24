@@ -13,10 +13,13 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 
 public class SquareCryptController extends JPanel{
 	
 	JTextField input;
+	
+	BufferedImage savedImage ;
 	
 	String str="";
 	SquareCryptModel model ;
@@ -107,14 +110,88 @@ public class SquareCryptController extends JPanel{
 	}
 
 	public void saveImage(){
+		int imageCount = (int)Math.floor(Math.random()*2000);
 		
-		BufferedImage bi = new BufferedImage(this.getSize().width, this.getSize().height, BufferedImage.TYPE_INT_ARGB); 
-		//bi = bi.getSubimage( 100, 500,this.getSize().width, this.getSize().height-200);
-		Graphics g = bi.createGraphics();
+		String imageName = "image"+imageCount+".png";
+		
+		savedImage = new BufferedImage(this.getSize().width, this.getSize().height, BufferedImage.TYPE_INT_ARGB); 
+		
+		Graphics g = savedImage.createGraphics();
 		this.paint(g);  //this == JComponent
 		g.dispose();
-		try{ImageIO.write(bi,"png",new File("image.png"));}catch (Exception e) {}
+		try{ImageIO.write(savedImage,"png",new File("images/"+imageName));}catch (Exception e) {}
 	}
-	
+
+
+//	public void saveImages(){
+//
+//		File file = new File("images");
+//
+//		File [] moreFile = file.listFiles();
+//
+//		String [] images = new String [moreFile.length];
+//
+//
+//		for(int i =0; i <images.length; i++){
+//
+//			images[i] = moreFile[i].getName();
+//		}
+//		
+//		int x = 0;
+//
+//		int y = 0;
+//
+//		BufferedImage result = new BufferedImage(
+//
+//				1000, 1000, //work these out
+//
+//				BufferedImage.TYPE_INT_RGB);
+//
+//		Graphics g = result.getGraphics();
+//
+//		for(String image : images){
+// 
+//			System.out.println("looping " + image);
+//
+//			try{
+//				
+//		
+//
+//			BufferedImage bi = new BufferedImage(savedImage.getWidth(),savedImage.getHeight(),BufferedImage.TYPE_INT_ARGB);
+//			
+//			bi =ImageIO.read(new File(image));
+//
+//			g.drawImage(bi , x , y , null);
+//
+//			x += bi.getWidth();
+//
+//			if(x > result.getWidth()){
+//
+//				x = 0;
+//
+//				y += bi.getHeight();
+//
+//			}
+//
+//			}catch (Exception e) {}
+//
+//		}
+//		
+//		g.dispose();
+//		
+//		try {
+//			
+//			ImageIO.write(result,"png",new File("result.png"));
+//			
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+
+
+		
+
+
+	//}
 
 }

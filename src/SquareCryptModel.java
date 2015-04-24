@@ -29,20 +29,6 @@ public class SquareCryptModel {
 		}
 		
 	}
-	//print out the matrix
-	
-	public void  printMatrix(){
-        
-		for(int i=0; i<row; i++){
-			
-			for(int j =0;j<row; j++ ){
-				
-				//System.out.print(matrix[i][j] +" ");
-
-			}
-			//System.out.print("\n");
-		}
-	}
 	
 	public Boolean isFull(int indX){
 		
@@ -81,14 +67,14 @@ public class SquareCryptModel {
             	
 			}
 			}else{
+				
 				isFull = true;
-				//makeNewModel();
+				count = 0;
+
 			}
 			
 			matrix[x][y] = count;
 			
-			//System.out.print( Character.getNumericValue(chr)+ " " );
-			//System.out.println(matrix[x][y] );
 			count ++;
 			
 		}
@@ -98,18 +84,6 @@ public class SquareCryptModel {
 		public int[][] getMatrix() {
 		return matrix;
 	}
-
-
-		public static void main(String[] args){
-			
-			String str = "ahgsbndikel?m";
-		
-//			SquareCryptModel mySquareCryptModel = new SquareCryptModel();
-//			
-//		   mySquareCryptModel.getMatrixIndecies(str);
-			
-			//mySquareCryptModel.printMatrix(); 
-		}
 
 //end of class	
 

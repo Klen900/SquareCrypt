@@ -12,6 +12,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -32,6 +33,7 @@ public class SquareCryptView extends JPanel implements ActionListener{
 	//delete was a challenge! because it was taking the last char instead of ...problem with count wasn't updating correctly
 	//what string was passed to model?
 	//buffered image ,saves the whole panel. why?
+	//layout of controller images
 	
 	JTextArea input = new JTextArea(20,20); 
 
@@ -58,6 +60,7 @@ public class SquareCryptView extends JPanel implements ActionListener{
 		
 
 		anotherPanel = new JPanel();
+
 		anotherPanel.setLayout(new BoxLayout(anotherPanel, BoxLayout.X_AXIS));
 
 		//setLayout(new GridLayout(3,1));
@@ -75,8 +78,10 @@ public class SquareCryptView extends JPanel implements ActionListener{
 		anotherPanel.add(save);
 		
 		imagePanel = new JPanel();
-		imagePanel.setLayout(new GridLayout(1,2));
+		imagePanel.setLayout(new BoxLayout(imagePanel, BoxLayout.Y_AXIS));
+		//imagePanel.setLayout(new GridLayout(1,2));
 		imagePanel.add(controller);
+		
 		
 		this.add(input,BorderLayout.NORTH);
 		this.add(imagePanel,BorderLayout.CENTER);
@@ -100,13 +105,32 @@ public class SquareCryptView extends JPanel implements ActionListener{
 		else if (buttonPressed.equals(goButton)){
 
 			in = input.getText();
+			
+			if(!model.isFull){
 
-			controller.setStr(in);
-			model.getMatrixIndecies(in);
-			controller.repaint();
+				model.getMatrixIndecies(in);
+				controller.repaint();
+
+			}
+			else{
+				controller.saveImage();
+				System.out.println("inside else");
+				controller = new SquareCryptController();
+				model = controller.getModel();
+
+				// model = new SquareCryptModel();
+				model.getMatrixIndecies(in);
+				validate();
+				//controller.getModel().getMatrixIndecies(in);
+				// System.out.println("in " + in);
+
+				imagePanel.add(controller);
+				controller.repaint();
+
+			}
 		}
 		else if (buttonPressed.equals(save)){
-			controller.saveImage();
+			//controller.saveImages();
 
 		}
 
@@ -132,7 +156,7 @@ public class SquareCryptView extends JPanel implements ActionListener{
 
 				}
 				else{
-
+                    controller.saveImage();
 					System.out.println("inside else");
 					controller = new SquareCryptController();
 					model = controller.getModel();
@@ -182,15 +206,6 @@ public class SquareCryptView extends JPanel implements ActionListener{
 		}); 
 
 	}
-	
-//	public void saveImage(){
-//		
-//		BufferedImage bi = new BufferedImage(this.getSize().width, this.getSize().height, BufferedImage.TYPE_INT_ARGB); 
-//		bi = bi.getSubimage( 100, 500,controller.getSize().width, controller.getSize().height-200);
-//		Graphics g = bi.createGraphics();
-//		this.paint(g);  //this == JComponent
-//		g.dispose();
-//		try{ImageIO.write(bi,"png",new File("image.png"));}catch (Exception e) {}
-//	}
+
 
 }
