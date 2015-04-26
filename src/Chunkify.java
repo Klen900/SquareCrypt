@@ -41,7 +41,7 @@ public class Chunkify extends Thread {
    
 	int countloop=0;
 	try {
-		bi = ImageIO.read(new File("image.png")); 
+		bi = ImageIO.read(new File("image1776.png")); 
 
 		
 		for (int x = 0; x <bi.getWidth(); x++) {
@@ -58,7 +58,7 @@ public class Chunkify extends Thread {
 		        //&& (c.getGreen()!=0 || c.getGreen()!=255 )&& (c.getBlue()!=0 || c.getBlue()!=255)
 				if( c.getRed()!=0 && c.getRed()!=255 && c.getGreen()!=0 && c.getGreen()!=255 && c.getBlue()!=0 && c.getBlue()!=255  ){
 					
-				//	System.out.println("inside if");
+					System.out.println("blue" + c.getBlue());
 					chars[c.getBlue()] = c.getRed();
 
 				}

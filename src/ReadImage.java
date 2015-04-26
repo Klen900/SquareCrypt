@@ -16,12 +16,9 @@ public class ReadImage {
 	    	   
 	      }
 			return str;
-		}
+		}  
 	
 
-
-
-	
 	public static void main(String[] args){
 
 	
@@ -40,11 +37,11 @@ public class ReadImage {
 		chunkified4.run();
 		
 		System.out.println(" I hope this works " + ReadImage.getCharValue(finalChars));
-//		
-//		System.out.println("chars "+chunkified1.getCharValue());
-//		System.out.println("chars "+chunkified2.getCharValue());
-//		System.out.println("chars "+chunkified3.getCharValue());
-//		System.out.println("chars "+chunkified4.getCharValue());
+		
+		System.out.println("chars "+chunkified1.getCharValue());
+		System.out.println("chars "+chunkified2.getCharValue());
+		System.out.println("chars "+chunkified3.getCharValue());
+		System.out.println("chars "+chunkified4.getCharValue());
 		
 		
 }

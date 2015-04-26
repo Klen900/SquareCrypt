@@ -108,7 +108,7 @@ public class SquareCryptView extends JPanel implements ActionListener{
 			
 			if(!model.isFull){
 
-				model.getMatrixIndecies(in);
+				model.setMatrixIndecies(in);
 				controller.repaint();
 
 			}
@@ -119,7 +119,7 @@ public class SquareCryptView extends JPanel implements ActionListener{
 				model = controller.getModel();
 
 				// model = new SquareCryptModel();
-				model.getMatrixIndecies(in);
+				model.setMatrixIndecies(in);
 				validate();
 				//controller.getModel().getMatrixIndecies(in);
 				// System.out.println("in " + in);
@@ -130,6 +130,8 @@ public class SquareCryptView extends JPanel implements ActionListener{
 			}
 		}
 		else if (buttonPressed.equals(save)){
+			 
+            controller.saveImage();
 			//controller.saveImages();
 
 		}
@@ -151,7 +153,7 @@ public class SquareCryptView extends JPanel implements ActionListener{
 
 				if(!model.isFull){
 
-					model.getMatrixIndecies(in);
+					model.setMatrixIndecies(in);
 					controller.repaint();
 
 				}
@@ -162,7 +164,7 @@ public class SquareCryptView extends JPanel implements ActionListener{
 					model = controller.getModel();
 
 					// model = new SquareCryptModel();
-					model.getMatrixIndecies(in);
+					model.setMatrixIndecies(in);
 					validate();
 					//controller.getModel().getMatrixIndecies(in);
 					// System.out.println("in " + in);

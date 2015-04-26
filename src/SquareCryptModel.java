@@ -6,6 +6,7 @@ public class SquareCryptModel {
 	int row= 127;
 	int col = 255; 
 	int count = 0;
+	public int countMatrices =0;
 	Boolean isFull = false;
 
 	//constructor
@@ -32,19 +33,26 @@ public class SquareCryptModel {
 	
 	public Boolean isFull(int indX){
 		
-		for(int j = 0; j<255; j++){
+//		for(int j = 0; j<255; j++){
+//			
+//			if(matrix[indX][j]==0){
+//				return false;
+//			}
+//			
+//		}
+		
+		if(count ==255){
 			
-			if(matrix[indX][j]==0){
-				return false;
-			}
-			
+			countMatrices++;
+
+			return true;
 		}
 		
-		return true;
+		return false;
 		
 	}
 	
-	public int[][] getMatrixIndecies(String str){
+	public int[][] setMatrixIndecies(String str){
 
 		char chr;
 		int x,y;

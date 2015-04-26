@@ -52,7 +52,7 @@ public class SquareCryptController extends JPanel{
 		
 		 model = new SquareCryptModel();
 		
-		model.getMatrixIndecies(str);
+		model.setMatrixIndecies(str);
 	
 	
 		repaint();
@@ -110,88 +110,86 @@ public class SquareCryptController extends JPanel{
 	}
 
 	public void saveImage(){
-		int imageCount = (int)Math.floor(Math.random()*2000);
+		//int imageCount = (int)Math.floor(Math.random()*2000);
 		
-		String imageName = "image"+imageCount+".png";
+		String imageName = "image"+model.countMatrices+".png";
 		
 		savedImage = new BufferedImage(this.getSize().width, this.getSize().height, BufferedImage.TYPE_INT_ARGB); 
 		
 		Graphics g = savedImage.createGraphics();
 		this.paint(g);  //this == JComponent
 		g.dispose();
-		try{ImageIO.write(savedImage,"png",new File("images/"+imageName));}catch (Exception e) {}
+		//try{ImageIO.write(savedImage,"png",new File("images/"+imageName));}catch (Exception e) {}
+		try{ImageIO.write(savedImage,"png",new File(imageName));}catch (Exception e) {}
 	}
 
-
-//	public void saveImages(){
-//
-//		File file = new File("images");
-//
-//		File [] moreFile = file.listFiles();
-//
-//		String [] images = new String [moreFile.length];
-//
-//
-//		for(int i =0; i <images.length; i++){
-//
-//			images[i] = moreFile[i].getName();
-//		}
-//		
-//		int x = 0;
-//
-//		int y = 0;
-//
-//		BufferedImage result = new BufferedImage(
-//
-//				1000, 1000, //work these out
-//
-//				BufferedImage.TYPE_INT_RGB);
-//
-//		Graphics g = result.getGraphics();
-//
-//		for(String image : images){
-// 
-//			System.out.println("looping " + image);
-//
-//			try{
-//				
-//		
-//
-//			BufferedImage bi = new BufferedImage(savedImage.getWidth(),savedImage.getHeight(),BufferedImage.TYPE_INT_ARGB);
-//			
-//			bi =ImageIO.read(new File(image));
-//
-//			g.drawImage(bi , x , y , null);
-//
-//			x += bi.getWidth();
-//
-//			if(x > result.getWidth()){
-//
-//				x = 0;
-//
-//				y += bi.getHeight();
-//
-//			}
-//
-//			}catch (Exception e) {}
-//
-//		}
-//		
-//		g.dispose();
-//		
-//		try {
-//			
-//			ImageIO.write(result,"png",new File("result.png"));
-//			
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-
-
+	
+	public void saveImages(){
 		
+        // Array of input images.
+        BufferedImage[] input = new BufferedImage[5];
+         
+        // Load each input image.
+        // Assume they are called "image_0.png", "image_1.png",
+        // etc.
+        for ( int i = 0; i < input.length; i++ ) {
+            try {
+                File f = new File( "image" + i + ".png" );
+                input[i] = ImageIO.read( f );
+            }
+            catch ( IOException x ) {
+                // Complain if there is any problem loading 
+                // an input image.
+                x.printStackTrace();
+            }
+        }
+         
+        // Create the output image.
+        // It is the same size as the first
+        // input image.  I had to specify the type
+        // so it would keep it's transparency.
+        BufferedImage output = new BufferedImage( 
+                1000, 
+                1000, 
+                BufferedImage.TYPE_INT_ARGB );
+         
+        // Draw each of the input images onto the
+        // output image.
+        Graphics g = output.getGraphics();
+        int x=0,y =0;
+        
+        
+        for ( int i = 0; i < input.length; i++ ) {
+        	
+        	System.out.println("y " + y);
+        	System.out.println("x " + x);
+        	
+            g.drawImage( input[i], x, y, null );
+            
 
+			x += input[i].getWidth();
 
-	//}
+			if(x > output.getWidth()){
+
+				x = 0;
+
+				y += input[i].getHeight();
+
+			}
+        }
+         
+        // Create the output image file and write the
+        // output image to it.
+        File f = new File( "result.png" );
+        try {
+            ImageIO.write( output, "PNG", f );
+        }
+        catch ( IOException e ) {
+            // Complain if there was any problem writing 
+            // the output file.
+            e.printStackTrace();
+        }       
+    
+	}
 
 }
