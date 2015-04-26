@@ -14,9 +14,11 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.Timer;
@@ -77,10 +79,14 @@ public class SquareCryptView extends JPanel implements ActionListener{
 		anotherPanel.add(auto);
 		anotherPanel.add(save);
 		
+		//JScrollPane scrollPane = new JScrollPane(panel);
+		
 		imagePanel = new JPanel();
 		imagePanel.setLayout(new BoxLayout(imagePanel, BoxLayout.Y_AXIS));
 		//imagePanel.setLayout(new GridLayout(1,2));
 		imagePanel.add(controller);
+		imagePanel.add(Box.createVerticalGlue());
+
 		
 		
 		this.add(input,BorderLayout.NORTH);

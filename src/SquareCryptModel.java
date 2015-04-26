@@ -78,7 +78,11 @@ public class SquareCryptModel {
 				
 				isFull = true;
 				count = 0;
+<<<<<<< HEAD
 
+=======
+				//makeNewModel();
+>>>>>>> 65cb317e74fe966f4a304900025efc0fe1dc573d
 			}
 			
 			matrix[x][y] = count;
