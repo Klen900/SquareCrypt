@@ -1,59 +1,31 @@
 import javax.imageio.ImageIO;
-
 import javax.swing.JPanel;
-
-
 
 import java.awt.BorderLayout;
-
 import java.awt.Color;
-
 import java.awt.Dimension;
-
 import java.awt.Graphics;
-
 import java.awt.GridLayout;
-
 import java.awt.event.ActionEvent;
-
 import java.awt.event.ActionListener;
-
 import java.awt.event.KeyEvent;
-
 import java.awt.event.KeyListener;
-
 import java.awt.image.BufferedImage;
-
 import java.io.File;
-
 import java.io.IOException;
 
-
-
 import javax.swing.Box;
-
 import javax.swing.BoxLayout;
-
 import javax.swing.JButton;
-
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
-
 import javax.swing.JScrollPane;
-
 import javax.swing.JTextArea;
-
 import javax.swing.JTextField;
-
-import javax.swing.Timer;
-
 import javax.swing.event.DocumentListener;
-
 import javax.swing.event.DocumentEvent;
-
-
-
-import java.util.TimerTask;
-
+import javax.swing.plaf.FileChooserUI;
 
 
 public class SquareCryptView extends JPanel implements ActionListener{
@@ -84,48 +56,32 @@ public class SquareCryptView extends JPanel implements ActionListener{
 	JButton clear;
 
 	JButton save;
+	JButton upload;
 
 	JPanel panel = new JPanel();
 
 	JPanel anotherPanel;
 
 	JPanel imagePanel;
+	
+	JTextField title;
 
 	public int count =0; 
 
-
-
-
 	SquareCryptController controller = new SquareCryptController();
-
 	SquareCryptModel model = controller.getModel();
-
-
-
-
-
-
-
-
-
 	//constructor
 
 	public SquareCryptView(){
-
-
 
 		mainPanel();
 
 	}
 
-
-
 	public void mainPanel(){
-
-
+		title = new JTextField("SquareCrypt");
+		title.setEditable(false);
 		anotherPanel = new JPanel();
-
-
 
 		anotherPanel.setLayout(new BoxLayout(anotherPanel, BoxLayout.X_AXIS));
 
@@ -148,26 +104,19 @@ public class SquareCryptView extends JPanel implements ActionListener{
 		save.addActionListener(this);
 
 		clear = new JButton("Clear All");
+		
+		upload = new JButton("upload");
 
 		clear.addActionListener(this);
 
 		setLayout(new BorderLayout());
-
-
-
-
 
 		anotherPanel.add(auto);
 
 		anotherPanel.add(save);
 
 		anotherPanel.add(clear);
-
-
-
-
-		JScrollPane scrollPane = new JScrollPane(panel);
-
+		anotherPanel.add(upload);
 
 		imagePanel = new JPanel();
 
@@ -180,12 +129,10 @@ public class SquareCryptView extends JPanel implements ActionListener{
 		//imagePanel.add(Box.createVerticalGlue());
 
 		//imagePanel.add(scrollPane);
+		
 
-
-
-
-
-		this.add(input,BorderLayout.NORTH);
+		this.add(topText(),BorderLayout.NORTH);
+		//this.add(title,BorderLayout.NORTH);
 
 		this.add(imagePanel,BorderLayout.CENTER);
 
@@ -195,17 +142,20 @@ public class SquareCryptView extends JPanel implements ActionListener{
 
 	}
 
+    public JPanel topText(){
+    	JPanel panel = new JPanel();
+    	panel.setLayout(new GridLayout(2,1));
 
-
-
-
+    	 panel.add(title);
+    	 
+    	 panel.add(input);
+    	
+    	 
+    	return panel;
+    }
+    
 	//Handle the key-pressed event.
-
-
-
 	public void actionPerformed(ActionEvent e){
-
-
 
 		JButton buttonPressed = (JButton) e.getSource();
 
@@ -213,19 +163,11 @@ public class SquareCryptView extends JPanel implements ActionListener{
 
 		if (buttonPressed.equals(auto)){
 
-
-
-
-
 			autoUpdate();
-
-
 
 		}
 
 		else if (buttonPressed.equals(clear)){
-
-
 
 			count = 0;
 
@@ -241,9 +183,6 @@ public class SquareCryptView extends JPanel implements ActionListener{
 
 			//controller.repaint();
 
-
-
-
 		}
 
 		else if (buttonPressed.equals(save)){
@@ -254,13 +193,15 @@ public class SquareCryptView extends JPanel implements ActionListener{
 
 			controller.saveImages(count);
 
-
-
 		}
+		else if(buttonPressed.equals(upload)){
+			
+			FileChooser upload = new FileChooser();
 
+			upload.createAndShowGUI();
 
-
-
+			upload.getFile().getName();
+		}
 
 	}
 
@@ -273,7 +214,6 @@ public class SquareCryptView extends JPanel implements ActionListener{
 	}
 
 
-
 	public void setCount(int count) {
 
 		this.count = count;
@@ -281,22 +221,15 @@ public class SquareCryptView extends JPanel implements ActionListener{
 	}
 
 
-
 	public void autoUpdate(){
 
 		input.getDocument().addDocumentListener(new DocumentListener(){
-
-
 
 			String in;
 
 			@Override
 
 			public void insertUpdate(DocumentEvent de) {
-
-
-
-
 
 				int textLngth = input.getText().length();
 
@@ -305,15 +238,12 @@ public class SquareCryptView extends JPanel implements ActionListener{
 				controller.setStr(in);
 
 
-
 				if(!model.isFull){
-
 
 
 					model.setMatrixIndecies(in);
 
 					controller.repaint();
-
 
 
 				}
@@ -328,64 +258,40 @@ public class SquareCryptView extends JPanel implements ActionListener{
 
 					controller = new SquareCryptController();
 
-
-
 					model = controller.getModel();
-
-
 
 					model.setMatrixIndecies(in);
 
 					validate();
 
-
-
 					imagePanel.add(controller);
 
 					controller.repaint();
-
-
 
 				}
 
 			}
 
-
-
 			@Override
 
 			public void removeUpdate(DocumentEvent de) {
 
-
-
 				int textLngth = input.getText().length();
 
-
-
 				//search through for position text.Lngth()+1
+				//find last character and set it's matrix indecies to -1 (erase it)
 
 				for(int i=0; i<model.row; i++){
 
 					for(int j =0;j<model.col; j++ ){
 
+						if(model.matrix[i][j] == textLngth + 1){
 
-
-						if(model.matrix[i][j] == textLngth){
-
-
-
-							model.matrix[i][j] = 0;
+							model.matrix[i][j] = -1;
 
 							break;
-
 						}
-
-
-
-
-
 					}
-
 				}
 
 				//find x,y position of in
@@ -394,22 +300,18 @@ public class SquareCryptView extends JPanel implements ActionListener{
 
 				//repaint
 
+				model.count = model.count -1;
+				
 				controller.repaint();
-
-				model.count = model.count --;
-
-
+				validate();
 
 			}
-
-
 
 			@Override
 
 			public void changedUpdate(DocumentEvent de) {
 
 			}
-
 
 
 		}); 

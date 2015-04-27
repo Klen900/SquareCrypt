@@ -21,7 +21,7 @@ public class ReadImage {
 
 		String str ="";
 		str= str+ chunkified1.getCharValue()+ chunkified2.getCharValue() + chunkified3.getCharValue()+chunkified4.getCharValue();
-		System.out.println("str "+str);
+		System.out.println(str);
 
 }
 
