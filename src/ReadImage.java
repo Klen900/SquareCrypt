@@ -8,11 +8,15 @@ import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
 public class ReadImage {
+<<<<<<< HEAD
 	
 	BufferedImage image = new BufferedImage(1020,1030,BufferedImage.TYPE_INT_ARGB);
 
+=======
+>>>>>>> b3fc24825be54ef1bab413f28af7ac39357228f3
 
 
+<<<<<<< HEAD
 	
 
 	public void read(){
@@ -31,6 +35,12 @@ public class ReadImage {
 		
 	//	System.out.println("which file is it " + image.get)
 
+=======
+		Chunkify chunkified1 = new Chunkify(0);
+		Chunkify chunkified2 = new Chunkify(256);
+		Chunkify chunkified3 = new Chunkify(511) ;
+		Chunkify chunkified4 = new Chunkify(766);
+>>>>>>> b3fc24825be54ef1bab413f28af7ac39357228f3
 
 		chunkified1.run();
 		chunkified2.run();
@@ -38,9 +48,14 @@ public class ReadImage {
 		chunkified4.run();
 
 		String str ="";
+<<<<<<< HEAD
 //		str= str+ chunkified1.getCharValue()+ chunkified2.getCharValue() + chunkified3.getCharValue()+chunkified4.getCharValue();
 	    str= str+ chunkified1.getCharValue();
 		System.out.println("str "+str);
+=======
+		str= str+ chunkified1.getCharValue()+ chunkified2.getCharValue() + chunkified3.getCharValue()+chunkified4.getCharValue();
+		System.out.println(str);
+>>>>>>> b3fc24825be54ef1bab413f28af7ac39357228f3
 
 }
 

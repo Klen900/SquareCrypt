@@ -15,8 +15,6 @@ public class SquareCryptModel {
 		makeNewModel();
 
 	}
-	
-
 
 	public void makeNewModel(){
 		
@@ -34,23 +32,19 @@ public class SquareCryptModel {
 	}
 	
 	public void clearAll(){
+<<<<<<< HEAD
 		makeNewModel();
+=======
+		
+		 makeNewModel();
+>>>>>>> b3fc24825be54ef1bab413f28af7ac39357228f3
 		
 	}
 	
 	public Boolean isFull(int indX){
 		
-//		for(int j = 0; j<255; j++){
-//			
-//			if(matrix[indX][j]==0){
-//				return false;
-//			}
-//			
-//		}
-		
 		if(count ==255){
 			
-
 			return true;
 		}
 		
@@ -75,7 +69,11 @@ public class SquareCryptModel {
 			//for duplicates
 			if(!isFull(x)){
 				
+<<<<<<< HEAD
 				while(matrix[x][y] != -1){
+=======
+            while(matrix[x][y] != -1){
+>>>>>>> b3fc24825be54ef1bab413f28af7ac39357228f3
             	
             	y = (int)Math.floor(Math.random()*col);
             	

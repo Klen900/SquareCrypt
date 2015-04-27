@@ -3,7 +3,6 @@ import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-
 import javax.imageio.ImageIO;
 
 
@@ -18,8 +17,13 @@ public class Chunkify extends Thread {
 	BufferedImage bi;
 
 	//constructor
+<<<<<<< HEAD
 	public Chunkify(int yStart, BufferedImage image){
 		 bi = image;
+=======
+	public Chunkify(int yStart){
+
+>>>>>>> b3fc24825be54ef1bab413f28af7ac39357228f3
 		this.yStart = yStart;
 	}
 	@Override
@@ -50,23 +54,25 @@ public class Chunkify extends Thread {
 
 						Color c = new Color(bi.getRGB(x, y));
 
-						
 
 						if( c.getRed()!=0 && c.getRed()!=255 && c.getGreen()!=0 && c.getGreen()!=255 && c.getBlue()!=0 && c.getBlue()!=255  ){
-							// System.out.println("rgb values for red " + c.getRed() + " green " + c.getGreen()+ " blue " + c.getBlue() );
+							
 							chars[c.getBlue()] = c.getRed();
 
 						}
-				
 
 					}//y
 
 				}//x
+<<<<<<< HEAD
 				//System.out.println("x " + x);
+=======
+>>>>>>> b3fc24825be54ef1bab413f28af7ac39357228f3
 
 				k++;
 				y=yStart;
 				j+= bi.getWidth()/2;
+				
 			}//k&j
 
 		
@@ -80,7 +86,6 @@ public class Chunkify extends Thread {
 		}
 		return str;
 	}
-
 
 
 }
