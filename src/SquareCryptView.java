@@ -21,10 +21,12 @@ import java.awt.event.ActionListener;
  * 
  * There are 2 main components to this view:
  *         *Top:
- *         The start button enables the recording of the user input, which changes the matrix values in the model & paints it in the controller
+ *             The start button enables the recording of the user input, which changes the matrix values in the model & paints it in the controller
  *         *Center:
- *         After every 255 characters entered, the view creates a new controller with a new matrix and paints it.
+ *             After every 255 characters entered, the view creates a new controller with a new matrix and paints it.
  *         *South:
+ *             
+ *         
  * 
  * @author elkha22n
  *
