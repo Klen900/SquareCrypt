@@ -18,12 +18,9 @@ public class Chunkify extends Thread {
 	BufferedImage bi;
 
 	//constructor
-	public Chunkify(int yStart, int[]chars){
+	public Chunkify(int yStart){
 
 		this.yStart = yStart;
-		this.chars = chars;
-
-
 	}
 	@Override
 	public void run() {
@@ -46,9 +43,7 @@ public class Chunkify extends Thread {
 			int x,y=yStart, j=0;
 
 			while( k<= 2 && j<= bi.getWidth()/2 ){
-				System.out.println("k " + k);
-				System.out.println("j " + j);
-				System.out.println("y " + y);
+
 				for ( x = j; x <k*bi.getWidth()/2; x ++) {
 
 					//y goes down by row
@@ -68,7 +63,7 @@ public class Chunkify extends Thread {
 					}//y
 
 				}//x
-				System.out.println("x " + x);
+				//System.out.println("x " + x);
 
 				k++;
 				y=yStart;
