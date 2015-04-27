@@ -5,7 +5,7 @@ public class SquareCryptModel {
 	int[][] matrix;
 	int row= 127;
 	int col = 255; 
-	int count = 0;
+	int count = 1;
 
 	Boolean isFull = false;
 
@@ -26,7 +26,7 @@ public class SquareCryptModel {
 		for(int i=0; i<row; i++){
 			for(int j =0;j<col; j++ ){
 				
-				matrix[i][j]= 0;
+				matrix[i][j]= -1;
 
 			}
 		}
@@ -34,16 +34,7 @@ public class SquareCryptModel {
 	}
 	
 	public void clearAll(){
-		matrix = new int[row][col];
-
-		//filling the matrix with RGB color = white.
-		for(int i=0; i<row; i++){
-			for(int j =0;j<col; j++ ){
-				
-				matrix[i][j]= 0;
-
-			}
-		}
+		makeNewModel();
 		
 	}
 	
@@ -84,7 +75,7 @@ public class SquareCryptModel {
 			//for duplicates
 			if(!isFull(x)){
 				
-            while(matrix[x][y] != 0){
+				while(matrix[x][y] != -1){
             	
             	y = (int)Math.floor(Math.random()*col);
             	
@@ -92,7 +83,7 @@ public class SquareCryptModel {
 			}else{
 				
 				isFull = true;
-				count = 0;
+				count = 1;
 
 			}
 			

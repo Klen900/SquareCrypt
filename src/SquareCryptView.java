@@ -17,6 +17,9 @@ import java.io.IOException;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -36,16 +39,16 @@ public class SquareCryptView extends JPanel implements ActionListener{
 	//what string was passed to model?
 	//buffered image ,saves the whole panel. why?
 	//layout of controller images
-<<<<<<< HEAD
-=======
-	//change count to start from 1 ? for first letter
->>>>>>> 02b231bcd48ee3d4400f12016e0e004ac85bfcd0
 	
 	JTextArea input = new JTextArea(20,20);
+
 
 	JButton auto; 
 	JButton clear;
 	JButton save;
+	//button to upload image to read!!
+	JButton upload;
+	JButton read;
 	JPanel panel = new JPanel();
 	JPanel anotherPanel;
 	JPanel imagePanel;
@@ -74,6 +77,10 @@ public class SquareCryptView extends JPanel implements ActionListener{
 		//input.setWrapStyleWord(true);
 		//input.setResizable(false);
 		//setLayout(new GridLayout(3,1));
+		read = new JButton("Read Image!");
+		read.addActionListener(this);
+		upload = new JButton("Upload Image");
+		upload.addActionListener(this);
 		auto = new JButton("Go");
 		auto.addActionListener(this);
 		save = new JButton("Save");
@@ -86,9 +93,10 @@ public class SquareCryptView extends JPanel implements ActionListener{
 		anotherPanel.add(auto);
 		anotherPanel.add(save);
 		anotherPanel.add(clear);
+		anotherPanel.add(upload);
+		anotherPanel.add(read);
 
-		
-		JScrollPane scrollPane = new JScrollPane(panel);
+
 		
 		JScrollPane scrollPane = new JScrollPane(panel);
 		
@@ -120,7 +128,6 @@ public class SquareCryptView extends JPanel implements ActionListener{
 			autoUpdate();
 
 		}
-<<<<<<< HEAD
 		else if (buttonPressed.equals(clear)){
 
 			count = 0;
@@ -138,45 +145,22 @@ public class SquareCryptView extends JPanel implements ActionListener{
 			 count++;
             controller.saveImage(count);
 			controller.saveImages(count);
-=======
-		else if (buttonPressed.equals(goButton)){
 
-			in = input.getText();
-			
-			if(!model.isFull){
-
-				model.setMatrixIndecies(in);
-				controller.repaint();
-
-			}
-			else{
-				count++;
-				controller.saveImage(count);
-				System.out.println("inside else");
-				controller = new SquareCryptController();
+		}
+		else if(buttonPressed.equals(upload)){
+		FileChooserDemo upload1 = new FileChooserDemo();
+			 upload1.createAndShowGUI();
+			 upload1.getFile().getName();
 				
-				model = controller.getModel();
-//				model.setCountMatrices(count);
-
-				// model = new SquareCryptModel();
-				model.setMatrixIndecies(in);
-				validate();
-				//controller.getModel().getMatrixIndecies(in);
-				// System.out.println("in " + in);
-
-				imagePanel.add(controller);
-				controller.repaint();
-
-			}
-		}
-		else if (buttonPressed.equals(save)){
-			 
-           //controller.saveImage(count);
-			controller.saveImages(8);
->>>>>>> 02b231bcd48ee3d4400f12016e0e004ac85bfcd0
 
 		}
+		else if(buttonPressed.equals(read)){
+			//pass the image to the controller!!
+			ReadImage reader = new ReadImage();
+			reader.read();
+			
 
+		}
 
 	}
 
@@ -226,6 +210,7 @@ public class SquareCryptView extends JPanel implements ActionListener{
 
 			@Override
 			public void removeUpdate(DocumentEvent de) {
+				//controller.setStr("");
 
 				int textLngth = input.getText().length();
 
@@ -233,20 +218,23 @@ public class SquareCryptView extends JPanel implements ActionListener{
 				for(int i=0; i<model.row; i++){
 					for(int j =0;j<model.col; j++ ){
 
-						if(model.matrix[i][j] == textLngth){
+						if(model.matrix[i][j] == textLngth + 1){
 
-							model.matrix[i][j] = 0;
+							model.matrix[i][j] = -1;
 							break;
 						}
-
-
+						
 					}
+					
+					//System.out.println("this is the fucking string " + controller.getStr());
 				}
 				//find x,y position of in
 				//change to 0
 				//repaint
+				model.count = model.count -1;
+
 				controller.repaint();
-				model.count = model.count --;
+				validate();
 
 			}
 
@@ -259,8 +247,4 @@ public class SquareCryptView extends JPanel implements ActionListener{
 	}
 
 
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 02b231bcd48ee3d4400f12016e0e004ac85bfcd0
