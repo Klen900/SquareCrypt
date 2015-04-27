@@ -13,14 +13,18 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 
 public class SquareCryptController extends JPanel{
 	
 	JTextField input;
 	
+	BufferedImage savedImage ;
+	
 	String str="";
 	SquareCryptModel model ;
-	
+	SquareCryptView view;
+
 	/**
 	 * @return the str
 	 */
@@ -49,7 +53,7 @@ public class SquareCryptController extends JPanel{
 		
 		 model = new SquareCryptModel();
 		
-		model.getMatrixIndecies(str);
+		model.setMatrixIndecies(str);
 	
 	
 		repaint();
@@ -106,15 +110,82 @@ public class SquareCryptController extends JPanel{
 				
 	}
 
-	public void saveImage(){
+	public void saveImage(int count){
+		//int imageCount = (int)Math.floor(Math.random()*2000);
+		 System.out.println("count " + count);
 		
-		BufferedImage bi = new BufferedImage(this.getSize().width, this.getSize().height, BufferedImage.TYPE_INT_ARGB); 
-		//bi = bi.getSubimage( 100, 500,this.getSize().width, this.getSize().height-200);
-		Graphics g = bi.createGraphics();
+		String imageName = "image"+count+".png";
+		
+		
+		//savedImage = new BufferedImage(this.getSize().width, this.getSize().height, BufferedImage.TYPE_INT_ARGB);
+		savedImage = new BufferedImage(510, 255, BufferedImage.TYPE_INT_ARGB); 
+		
+		Graphics g = savedImage.createGraphics();
 		this.paint(g);  //this == JComponent
 		g.dispose();
-		try{ImageIO.write(bi,"png",new File("image.png"));}catch (Exception e) {}
+		//try{ImageIO.write(savedImage,"png",new File("images/"+imageName));}catch (Exception e) {}
+		try{ImageIO.write(savedImage,"png",new File(imageName));}catch (Exception e) {}
 	}
+
 	
+	public void saveImages(int count){
+		
+        // Array of input images.
+		System.out.println("count " +count);
+		//count must start at 1 and not 0 because we can't have array of size zero
+        BufferedImage[] input = new BufferedImage[count+1];
+         
+        // Load each image.
+        for ( int i = 1; i < input.length; i++ ) {
+            try {
+                File f = new File( "image" + i + ".png" );
+                input[i] = ImageIO.read( f );
+                
+              System.out.println(f.getName());
+            }
+            catch ( IOException x ) {
+                x.printStackTrace();
+            }
+        }
+         
+        // Create the output image. 1020*1020
+        BufferedImage output = new BufferedImage(1020,1030,BufferedImage.TYPE_INT_ARGB );
+         
+        // Draw each of the input images onto the
+        // output image.
+        Graphics g = output.getGraphics();
+        
+        int x=0,y =0;
+        
+        for ( int i = 1; i < input.length; i++ ) {
+        	
+            g.drawImage( input[i], x, y, null );
+            
+
+			x += 510;
+
+			if(x >= output.getWidth()){
+
+				x = 0;
+
+				y += 255;
+
+			}
+			System.out.println("i " + i + "y " +y );
+        }
+         
+        // Create the output image file and write the
+        // output image to it.
+        File f = new File( "result.png" );
+        try {
+            ImageIO.write( output, "PNG", f );
+        }
+        catch ( IOException e ) {
+            // Complain if there was any problem writing 
+            // the output file.
+            e.printStackTrace();
+        }       
+    
+	}
 
 }

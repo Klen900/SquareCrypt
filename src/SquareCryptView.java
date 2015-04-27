@@ -12,10 +12,13 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.Timer;
@@ -32,18 +35,23 @@ public class SquareCryptView extends JPanel implements ActionListener{
 	//delete was a challenge! because it was taking the last char instead of ...problem with count wasn't updating correctly
 	//what string was passed to model?
 	//buffered image ,saves the whole panel. why?
+	//layout of controller images
 	
-	JTextArea input = new JTextArea(20,20); 
+	JTextArea input = new JTextArea(20,20);
 
 	JButton auto; 
-	JButton goButton;
+	JButton clear;
 	JButton save;
 	JPanel panel = new JPanel();
 	JPanel anotherPanel;
 	JPanel imagePanel;
+	public int count =0; 
+	
 
 	SquareCryptController controller = new SquareCryptController();
 	SquareCryptModel model = controller.getModel();
+
+
 
 
 	//constructor
@@ -54,29 +62,38 @@ public class SquareCryptView extends JPanel implements ActionListener{
 
 	public void mainPanel(){
 		
-
-		
-
 		anotherPanel = new JPanel();
-		anotherPanel.setLayout(new BoxLayout(anotherPanel, BoxLayout.X_AXIS));
 
+		anotherPanel.setLayout(new BoxLayout(anotherPanel, BoxLayout.X_AXIS));
+	//	input.setMaximumSize(new Dimension(20,100));
+		input.setLineWrap(true);
+		//input.setWrapStyleWord(true);
+		//input.setResizable(false);
 		//setLayout(new GridLayout(3,1));
-		auto = new JButton("Update Automatically");
+		auto = new JButton("Go");
 		auto.addActionListener(this);
-		save = new JButton("save");
+		save = new JButton("Save");
 		save.addActionListener(this);
-		goButton = new JButton("Go");
-		goButton.addActionListener(this);
+		clear = new JButton("Clear All");
+		clear.addActionListener(this);
 		setLayout(new BorderLayout());
 
 
-		anotherPanel.add(goButton);
 		anotherPanel.add(auto);
 		anotherPanel.add(save);
+		anotherPanel.add(clear);
+
+		
+		JScrollPane scrollPane = new JScrollPane(panel);
 		
 		imagePanel = new JPanel();
-		imagePanel.setLayout(new GridLayout(1,2));
+		imagePanel.setLayout(new BoxLayout(imagePanel, BoxLayout.Y_AXIS));
+		//imagePanel.setLayout(new GridLayout(1,2));
 		imagePanel.add(controller);
+		//imagePanel.add(Box.createVerticalGlue());
+		//imagePanel.add(scrollPane);
+
+		
 		
 		this.add(input,BorderLayout.NORTH);
 		this.add(imagePanel,BorderLayout.CENTER);
@@ -97,20 +114,35 @@ public class SquareCryptView extends JPanel implements ActionListener{
 			autoUpdate();
 
 		}
-		else if (buttonPressed.equals(goButton)){
+		else if (buttonPressed.equals(clear)){
 
-			in = input.getText();
-
-			controller.setStr(in);
-			model.getMatrixIndecies(in);
-			controller.repaint();
+			count = 0;
+			input.setText("");
+			model.clearAll();
+			validate();
+			imagePanel.removeAll();
+			imagePanel.updateUI();
+				//controller.repaint();
+				
+		
+				
 		}
 		else if (buttonPressed.equals(save)){
-			controller.saveImage();
+			 count++;
+            controller.saveImage(count);
+			controller.saveImages(count);
 
 		}
 
 
+	}
+
+	public int getCount() {
+		return count;
+	}
+
+	public void setCount(int count) {
+		this.count = count;
 	}
 
 	public void autoUpdate(){
@@ -127,21 +159,21 @@ public class SquareCryptView extends JPanel implements ActionListener{
 
 				if(!model.isFull){
 
-					model.getMatrixIndecies(in);
+					model.setMatrixIndecies(in);
 					controller.repaint();
 
 				}
 				else{
-
+					count++;
+                    controller.saveImage(count);
 					System.out.println("inside else");
 					controller = new SquareCryptController();
+					
+	
 					model = controller.getModel();
 
-					// model = new SquareCryptModel();
-					model.getMatrixIndecies(in);
+					model.setMatrixIndecies(in);
 					validate();
-					//controller.getModel().getMatrixIndecies(in);
-					// System.out.println("in " + in);
 
 					imagePanel.add(controller);
 					controller.repaint();
@@ -182,15 +214,6 @@ public class SquareCryptView extends JPanel implements ActionListener{
 		}); 
 
 	}
-	
-//	public void saveImage(){
-//		
-//		BufferedImage bi = new BufferedImage(this.getSize().width, this.getSize().height, BufferedImage.TYPE_INT_ARGB); 
-//		bi = bi.getSubimage( 100, 500,controller.getSize().width, controller.getSize().height-200);
-//		Graphics g = bi.createGraphics();
-//		this.paint(g);  //this == JComponent
-//		g.dispose();
-//		try{ImageIO.write(bi,"png",new File("image.png"));}catch (Exception e) {}
-//	}
+
 
 }

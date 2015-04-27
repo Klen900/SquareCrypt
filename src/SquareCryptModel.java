@@ -6,6 +6,7 @@ public class SquareCryptModel {
 	int row= 127;
 	int col = 255; 
 	int count = 0;
+
 	Boolean isFull = false;
 
 	//constructor
@@ -15,6 +16,8 @@ public class SquareCryptModel {
 
 	}
 	
+
+
 	public void makeNewModel(){
 		
 		matrix = new int[row][col];
@@ -29,36 +32,42 @@ public class SquareCryptModel {
 		}
 		
 	}
-	//print out the matrix
 	
-	public void  printMatrix(){
-        
+	public void clearAll(){
+		matrix = new int[row][col];
+
+		//filling the matrix with RGB color = white.
 		for(int i=0; i<row; i++){
-			
-			for(int j =0;j<row; j++ ){
+			for(int j =0;j<col; j++ ){
 				
-				//System.out.print(matrix[i][j] +" ");
+				matrix[i][j]= 0;
 
 			}
-			//System.out.print("\n");
 		}
+		
 	}
 	
 	public Boolean isFull(int indX){
 		
-		for(int j = 0; j<255; j++){
+//		for(int j = 0; j<255; j++){
+//			
+//			if(matrix[indX][j]==0){
+//				return false;
+//			}
+//			
+//		}
+		
+		if(count ==255){
 			
-			if(matrix[indX][j]==0){
-				return false;
-			}
-			
+
+			return true;
 		}
 		
-		return true;
+		return false;
 		
 	}
 	
-	public int[][] getMatrixIndecies(String str){
+	public int[][] setMatrixIndecies(String str){
 
 		char chr;
 		int x,y;
@@ -81,15 +90,14 @@ public class SquareCryptModel {
             	
 			}
 			}else{
+				
 				isFull = true;
 				count = 0;
-				//makeNewModel();
+
 			}
 			
 			matrix[x][y] = count;
 			
-			//System.out.print( Character.getNumericValue(chr)+ " " );
-			//System.out.println(matrix[x][y] );
 			count ++;
 			
 		}
@@ -99,18 +107,6 @@ public class SquareCryptModel {
 		public int[][] getMatrix() {
 		return matrix;
 	}
-
-
-		public static void main(String[] args){
-			
-			String str = "ahgsbndikel?m";
-		
-//			SquareCryptModel mySquareCryptModel = new SquareCryptModel();
-//			
-//		   mySquareCryptModel.getMatrixIndecies(str);
-			
-			//mySquareCryptModel.printMatrix(); 
-		}
 
 //end of class	
 
