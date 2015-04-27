@@ -36,6 +36,7 @@ public class SquareCryptView extends JPanel implements ActionListener{
 	//what string was passed to model?
 	//buffered image ,saves the whole panel. why?
 	//layout of controller images
+	//change count to start from 1 ? for first letter
 	
 	JTextArea input = new JTextArea(20,20);
 

@@ -23,12 +23,6 @@ public class ReadImage {
 
 	public static void main(String[] args){
 
-
-//		 int[] chars1 = new int[255];
-//		 int[] chars2 = new int[255];
-//		 int[] chars3 = new int[255];
-//		 int[] chars4 = new int[255];
-
 		 int [] finalChars = new int[1000];
 		 
 		//x=510 × y= 439
@@ -53,13 +47,6 @@ public class ReadImage {
 
 		
 		System.out.println("chars "+chunkified1.getCharValue());
-//		System.out.println("chars "+chunkified2.getCharValue());
-//		System.out.println("chars "+chunkified3.getCharValue());
-//		System.out.println("chars "+chunkified4.getCharValue());
-		
-
-//		
-//		System.out.println("chars "+chunkified1.getCharValue());
 //		System.out.println("chars "+chunkified2.getCharValue());
 //		System.out.println("chars "+chunkified3.getCharValue());
 //		System.out.println("chars "+chunkified4.getCharValue());

@@ -10,14 +10,16 @@ import javax.imageio.ImageIO;
 public class Chunkify extends Thread {
 
 	public int [] chars = new int[1000];
-	//public int[] chars;
+
 	String str ="";
 
 	int indexStart, indexStop;
+
 	BufferedImage bi;
 
 	//constructor
 	public Chunkify(int indexStart,int indexStop, int[]chars){
+
 		this.indexStart = indexStart;
 		this.indexStop = indexStop;
 		this.chars = chars;
@@ -44,40 +46,36 @@ public class Chunkify extends Thread {
 
 			//what is j doing ?
 			//why does x increase by bi.getWidth()/2 ??
+			
+
 			int k=1;
-			int y;
-			while( k<=2 ){
-				for(int j = 0;j<=bi.getWidth()/2 ; j+= bi.getWidth()/2){
-					for (int x = j; x <k*bi.getWidth()/2; x ++) {
+			int y, j=0;
 
-						//y goes down by row
-						for ( y = 0; y <indexStop; y++) {
+			while( k<= 2 && j<= bi.getWidth()/2 ){
+				System.out.println("k " + k);
+				System.out.println("j " + j);
+				for (int x = j; x <k*bi.getWidth()/2; x ++) {
 
-							Color c = new Color(bi.getRGB(x, y));
+					//y goes down by row
+					for ( y = 0; y <indexStop; y++) {
 
-							//System.out.println("y"+ y);
-							if(x>510){
-								System.out.println("x"+ x);
-							}
+						Color c = new Color(bi.getRGB(x, y));
 
-							//&& (c.getGreen()!=0 || c.getGreen()!=255 )&& (c.getBlue()!=0 || c.getBlue()!=255)
-							if( c.getRed()!=0 && c.getRed()!=255 && c.getGreen()!=0 && c.getGreen()!=255 && c.getBlue()!=0 && c.getBlue()!=255  ){
-								// System.out.println("rgb values for red " + c.getRed() + " green " + c.getGreen()+ " blue " + c.getBlue() );
-								//System.out.println("blue***************************************************************************" + c.getBlue());
-								chars[c.getBlue()] = c.getRed();
+						
 
-							}
+						if( c.getRed()!=0 && c.getRed()!=255 && c.getGreen()!=0 && c.getGreen()!=255 && c.getBlue()!=0 && c.getBlue()!=255  ){
+							// System.out.println("rgb values for red " + c.getRed() + " green " + c.getGreen()+ " blue " + c.getBlue() );
+							chars[c.getBlue()] = c.getRed();
 
 						}
 
-					}
-				}
+					}//y
+
+				}//x
 				k++;
 				y=0;
-			}
-
-			getCharValue();	
-
+				j+= bi.getWidth()/2;
+			}// k&j
 
 		} catch (IOException e) {
 
