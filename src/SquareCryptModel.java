@@ -32,8 +32,12 @@ public class SquareCryptModel {
 	}
 	
 	public void clearAll(){
+<<<<<<< HEAD
+		makeNewModel();
+=======
 		
 		 makeNewModel();
+>>>>>>> b3fc24825be54ef1bab413f28af7ac39357228f3
 		
 	}
 	
@@ -65,7 +69,11 @@ public class SquareCryptModel {
 			//for duplicates
 			if(!isFull(x)){
 				
+<<<<<<< HEAD
+				while(matrix[x][y] != -1){
+=======
             while(matrix[x][y] != -1){
+>>>>>>> b3fc24825be54ef1bab413f28af7ac39357228f3
             	
             	y = (int)Math.floor(Math.random()*col);
             	

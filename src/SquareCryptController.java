@@ -78,7 +78,11 @@ public class SquareCryptController extends JPanel{
 				int b =model.matrix[row][col] %255;
 				
 				//if the matrix does not have a value of 0 at row & col then, row = x & col = y
+<<<<<<< HEAD
+				 if( model.matrix[row][col] != -1){
+=======
                         if( model.matrix[row][col] != -1){
+>>>>>>> b3fc24825be54ef1bab413f28af7ac39357228f3
                         	
                         	Color color = new Color(row,col,b );
                         	paintBlock(g,row*computeBlockSize(),col*computeBlockSize(),computeBlockSize(),color);	

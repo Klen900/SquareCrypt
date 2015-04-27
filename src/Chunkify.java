@@ -17,8 +17,13 @@ public class Chunkify extends Thread {
 	BufferedImage bi;
 
 	//constructor
+<<<<<<< HEAD
+	public Chunkify(int yStart, BufferedImage image){
+		 bi = image;
+=======
 	public Chunkify(int yStart){
 
+>>>>>>> b3fc24825be54ef1bab413f28af7ac39357228f3
 		this.yStart = yStart;
 	}
 	@Override
@@ -35,9 +40,14 @@ public class Chunkify extends Thread {
 	private synchronized void readChunk() throws InterruptedException {
 
 
+<<<<<<< HEAD
 		try {
 			//bi = ImageIO.read(new File("result.png")); 
 			 bi = ImageIO.read(new File("images/theImage.png"));
+=======
+	
+
+>>>>>>> b8d70eb1581948ea6e2eacadcd966c647e81771f
 			int k=1;
 			int x,y=yStart, j=0;
 
@@ -60,6 +70,10 @@ public class Chunkify extends Thread {
 					}//y
 
 				}//x
+<<<<<<< HEAD
+				//System.out.println("x " + x);
+=======
+>>>>>>> b3fc24825be54ef1bab413f28af7ac39357228f3
 
 				k++;
 				y=yStart;
@@ -67,12 +81,7 @@ public class Chunkify extends Thread {
 				
 			}//k&j
 
-		} catch (IOException e) {
-
-			//e.printStackTrace();
-			System.out.println("Image not found");
-
-		}
+		
 
 	}
 	public String getCharValue(){
