@@ -13,15 +13,14 @@ public class Chunkify extends Thread {
 
 	String str ="";
 
-	int indexStart, indexStop;
+	int yStart;
 
 	BufferedImage bi;
 
 	//constructor
-	public Chunkify(int indexStart,int indexStop, int[]chars){
+	public Chunkify(int yStart, int[]chars){
 
-		this.indexStart = indexStart;
-		this.indexStop = indexStop;
+		this.yStart = yStart;
 		this.chars = chars;
 
 
@@ -31,7 +30,6 @@ public class Chunkify extends Thread {
 		try {
 
 			readChunk();
-			System.out.println("alive " + indexStart);
 
 		} catch (InterruptedException e) {
 		}
@@ -44,20 +42,17 @@ public class Chunkify extends Thread {
 		try {
 			bi = ImageIO.read(new File("result.png")); 
 
-			//what is j doing ?
-			//why does x increase by bi.getWidth()/2 ??
-			
-
 			int k=1;
-			int y, j=0;
+			int x,y=yStart, j=0;
 
 			while( k<= 2 && j<= bi.getWidth()/2 ){
 				System.out.println("k " + k);
 				System.out.println("j " + j);
-				for (int x = j; x <k*bi.getWidth()/2; x ++) {
+				System.out.println("y " + y);
+				for ( x = j; x <k*bi.getWidth()/2; x ++) {
 
 					//y goes down by row
-					for ( y = 0; y <indexStop; y++) {
+					for ( y = yStart; y < yStart+ 255; y++) {
 
 						Color c = new Color(bi.getRGB(x, y));
 
@@ -68,14 +63,17 @@ public class Chunkify extends Thread {
 							chars[c.getBlue()] = c.getRed();
 
 						}
+				
 
 					}//y
 
 				}//x
+				System.out.println("x " + x);
+
 				k++;
-				y=0;
+				y=yStart;
 				j+= bi.getWidth()/2;
-			}// k&j
+			}//k&j
 
 		} catch (IOException e) {
 

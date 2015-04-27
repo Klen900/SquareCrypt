@@ -135,9 +135,7 @@ public class SquareCryptController extends JPanel{
 		//count must start at 1 and not 0 because we can't have array of size zero
         BufferedImage[] input = new BufferedImage[count+1];
          
-        // Load each input image.
-        // Assume they are called "image_0.png", "image_1.png",
-        // etc.
+        // Load each image.
         for ( int i = 1; i < input.length; i++ ) {
             try {
                 File f = new File( "image" + i + ".png" );
@@ -146,44 +144,34 @@ public class SquareCryptController extends JPanel{
               System.out.println(f.getName());
             }
             catch ( IOException x ) {
-                // Complain if there is any problem loading 
-                // an input image.
                 x.printStackTrace();
             }
         }
          
-        // Create the output image.
-        // It is the same size as the first
-        // input image.  I had to specify the type
-        // so it would keep it's transparency.
-        BufferedImage output = new BufferedImage( 
-                1020, 
-                1000, 
-                BufferedImage.TYPE_INT_ARGB );
+        // Create the output image. 1020*1020
+        BufferedImage output = new BufferedImage(1020,1030,BufferedImage.TYPE_INT_ARGB );
          
         // Draw each of the input images onto the
         // output image.
         Graphics g = output.getGraphics();
+        
         int x=0,y =0;
         
-        
         for ( int i = 1; i < input.length; i++ ) {
-        	
-        	System.out.println("y " + y);
-        	System.out.println("x " + x);
         	
             g.drawImage( input[i], x, y, null );
             
 
 			x += 510;
 
-			if(x > output.getWidth()){
+			if(x >= output.getWidth()){
 
 				x = 0;
 
 				y += 255;
 
 			}
+			System.out.println("i " + i + "y " +y );
         }
          
         // Create the output image file and write the

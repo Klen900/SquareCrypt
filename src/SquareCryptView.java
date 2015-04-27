@@ -146,8 +146,8 @@ public class SquareCryptView extends JPanel implements ActionListener{
 		}
 		else if (buttonPressed.equals(save)){
 			 
-            //controller.saveImage(count);
-			controller.saveImages(count);
+           //controller.saveImage(count);
+			controller.saveImages(8);
 
 		}
 
