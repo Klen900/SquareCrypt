@@ -33,6 +33,20 @@ public class SquareCryptModel {
 		
 	}
 	
+	public void clearAll(){
+		matrix = new int[row][col];
+
+		//filling the matrix with RGB color = white.
+		for(int i=0; i<row; i++){
+			for(int j =0;j<col; j++ ){
+				
+				matrix[i][j]= 0;
+
+			}
+		}
+		
+	}
+	
 	public Boolean isFull(int indX){
 		
 //		for(int j = 0; j<255; j++){
