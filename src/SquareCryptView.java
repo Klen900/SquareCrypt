@@ -14,31 +14,6 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-<<<<<<< HEAD
-=======
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-
-import javax.swing.Box;
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-<<<<<<< HEAD
-
-=======
->>>>>>> b3fc24825be54ef1bab413f28af7ac39357228f3
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import javax.swing.event.DocumentListener;
-import javax.swing.event.DocumentEvent;
-import javax.swing.plaf.FileChooserUI;
->>>>>>> b8d70eb1581948ea6e2eacadcd966c647e81771f
 
 /**
  * This class creates the GUI view for this project, by organizing all of its components
@@ -46,12 +21,10 @@ import javax.swing.plaf.FileChooserUI;
  * 
  * There are 2 main components to this view:
  *         *Top:
- *             The start button enables the recording of the user input, which changes the matrix values in the model & paints it in the controller
+ *         The start button enables the recording of the user input, which changes the matrix values in the model & paints it in the controller
  *         *Center:
- *             After every 255 characters entered, the view creates a new controller with a new matrix and paints it.
+ *         After every 255 characters entered, the view creates a new controller with a new matrix and paints it.
  *         *South:
- *             
- *         
  * 
  * @author elkha22n
  *
@@ -72,37 +45,21 @@ public class SquareCryptView extends JPanel implements ActionListener{
 	//buffered image ,saves the whole panel. why?
 
 	//layout of controller images
-<<<<<<< HEAD
-	
-	JTextArea input = new JTextArea(20,20);
-
-
-=======
 
 
 	JTextArea input = new JTextArea();;
 
->>>>>>> b3fc24825be54ef1bab413f28af7ac39357228f3
 	JButton auto; 
 
 	JButton clear;
 
 	JButton save;
-<<<<<<< HEAD
 	
 	//button to upload image to read!!
-=======
-<<<<<<< HEAD
-	//button to upload image to read!!
-	JButton upload;
-	JButton read;
-=======
->>>>>>> b8d70eb1581948ea6e2eacadcd966c647e81771f
 	JButton upload;
 	JButton read;
 	
 
->>>>>>> b3fc24825be54ef1bab413f28af7ac39357228f3
 	JPanel panel = new JPanel();
 
 	JPanel anotherPanel;
@@ -155,23 +112,6 @@ public class SquareCryptView extends JPanel implements ActionListener{
         setSize(240, 240);
         setVisible(true);
 
-<<<<<<< HEAD
-=======
-		//input.setWrapStyleWord(true);
-
-		//input.setResizable(false);
-
-		//setLayout(new GridLayout(3,1));
-<<<<<<< HEAD
-		read = new JButton("Read Image!");
-		read.addActionListener(this);
-		upload = new JButton("Upload Image");
-		upload.addActionListener(this);
-=======
-
->>>>>>> b3fc24825be54ef1bab413f28af7ac39357228f3
-		auto = new JButton("Go");
->>>>>>> b8d70eb1581948ea6e2eacadcd966c647e81771f
 
 		auto.addActionListener(this);
 
@@ -215,23 +155,11 @@ public class SquareCryptView extends JPanel implements ActionListener{
 		anotherPanel.add(save);
 		anotherPanel.add(clear);
 		anotherPanel.add(upload);
-<<<<<<< HEAD
 		anotherPanel.add(read);
 		
 		anotherPanel.setBackground(new Color(0,0,102));
 		//**************************************
-=======
-<<<<<<< HEAD
-		anotherPanel.add(read);
->>>>>>> b8d70eb1581948ea6e2eacadcd966c647e81771f
 
-
-		
-		JScrollPane scrollPane = new JScrollPane(panel);
-		
-=======
-
->>>>>>> b3fc24825be54ef1bab413f28af7ac39357228f3
 		imagePanel = new JPanel();
 
 		imagePanel.setLayout(new BoxLayout(imagePanel, BoxLayout.Y_AXIS));
@@ -316,10 +244,7 @@ public class SquareCryptView extends JPanel implements ActionListener{
 			autoUpdate();
 
 		}
-<<<<<<< HEAD
-=======
 
->>>>>>> b3fc24825be54ef1bab413f28af7ac39357228f3
 		else if (buttonPressed.equals(clear)){
 
 			count = 0;
@@ -339,25 +264,6 @@ public class SquareCryptView extends JPanel implements ActionListener{
 		}
 
 		else if (buttonPressed.equals(save)){
-<<<<<<< HEAD
-			 count++;
-            controller.saveImage(count);
-			controller.saveImages(count);
-
-		}
-		else if(buttonPressed.equals(upload)){
-		FileChooserDemo upload1 = new FileChooserDemo();
-			 upload1.createAndShowGUI();
-			 upload1.getFile().getName();
-				
-
-		}
-		else if(buttonPressed.equals(read)){
-			//pass the image to the controller!!
-			ReadImage reader = new ReadImage();
-			reader.read();
-			
-=======
 
 			count++;
 
@@ -379,15 +285,10 @@ public class SquareCryptView extends JPanel implements ActionListener{
 			input.setText(reader.str);
 			
 		}
->>>>>>> b3fc24825be54ef1bab413f28af7ac39357228f3
 
 	}
 
-<<<<<<< HEAD
-	}
-=======
 
->>>>>>> b3fc24825be54ef1bab413f28af7ac39357228f3
 
 	public int getCount() {
 
@@ -457,7 +358,6 @@ public class SquareCryptView extends JPanel implements ActionListener{
 			@Override
 
 			public void removeUpdate(DocumentEvent de) {
-				//controller.setStr("");
 
 				int textLngth = input.getText().length();
 
@@ -469,22 +369,12 @@ public class SquareCryptView extends JPanel implements ActionListener{
 					for(int j =0;j<model.col; j++ ){
 
 						if(model.matrix[i][j] == textLngth + 1){
-<<<<<<< HEAD
-
-							model.matrix[i][j] = -1;
-							break;
-						}
-						
-=======
 
 							model.matrix[i][j] = -1;
 
 							break;
 						}
->>>>>>> b3fc24825be54ef1bab413f28af7ac39357228f3
 					}
-					
-					//System.out.println("this is the fucking string " + controller.getStr());
 				}
 
 				//find x,y position of in
@@ -492,14 +382,9 @@ public class SquareCryptView extends JPanel implements ActionListener{
 				//change to 0
 
 				//repaint
-<<<<<<< HEAD
-				model.count = model.count -1;
-
-=======
 
 				model.count = model.count -1;
 				
->>>>>>> b3fc24825be54ef1bab413f28af7ac39357228f3
 				controller.repaint();
 				validate();
 
@@ -515,14 +400,4 @@ public class SquareCryptView extends JPanel implements ActionListener{
 
 	}
 
-<<<<<<< HEAD
-=======
-
-<<<<<<< HEAD
-=======
-
-
-
->>>>>>> b3fc24825be54ef1bab413f28af7ac39357228f3
->>>>>>> b8d70eb1581948ea6e2eacadcd966c647e81771f
 }
