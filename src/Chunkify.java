@@ -9,7 +9,7 @@ import javax.imageio.ImageIO;
 
 public class Chunkify extends Thread {
 
-	public int [] chars = new int[200];
+	public int [] chars = new int[1000];
     //public int[] chars;
 	String str ="";
 	
@@ -38,33 +38,42 @@ public class Chunkify extends Thread {
 
 	private synchronized void readChunk() throws InterruptedException {
 		
-   
-	int countloop=0;
+	
 	try {
-		bi = ImageIO.read(new File("image1776.png")); 
+		bi = ImageIO.read(new File("result.png")); 
 
-		
-		for (int x = 0; x <bi.getWidth(); x++) {
+		//what is j doing ?
+		//why does x increase by bi.getWidth()/2 ??
+		int k=1;
+		int y;
+		while( k<=2 ){
+		for(int j = 0;j<=bi.getWidth()/2 ; j+= bi.getWidth()/2){
+		for (int x = j; x <k*bi.getWidth()/2; x ++) {
 
 			//y goes down by row
-		    for (int y = 0; y <indexStop; y++) {
+		    for ( y = 0; y <indexStop; y++) {
 		    	
 		        Color c = new Color(bi.getRGB(x, y));
 		        
-//		        System.out.println("red=="+c.getRed()+" green=="+c.getGreen()+"    blue=="+c.getBlue()+"  countloop="+countloop++);      
-//		        System.out.println("y"+ y);
-//		        System.out.println("x"+ x);
-		        
+		        //System.out.println("y"+ y);
+		        if(x>510){
+		        System.out.println("x"+ x);
+		        }
+		    
 		        //&& (c.getGreen()!=0 || c.getGreen()!=255 )&& (c.getBlue()!=0 || c.getBlue()!=255)
 				if( c.getRed()!=0 && c.getRed()!=255 && c.getGreen()!=0 && c.getGreen()!=255 && c.getBlue()!=0 && c.getBlue()!=255  ){
-					
-					System.out.println("blue" + c.getBlue());
+					  // System.out.println("rgb values for red " + c.getRed() + " green " + c.getGreen()+ " blue " + c.getBlue() );
+					//System.out.println("blue***************************************************************************" + c.getBlue());
 					chars[c.getBlue()] = c.getRed();
-
+					
 				}
 				
-		    }
+		 }
 		   
+		}
+		}
+		k++;
+	    y=0;
 		}
 		
 		getCharValue();	

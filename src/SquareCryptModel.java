@@ -6,7 +6,7 @@ public class SquareCryptModel {
 	int row= 127;
 	int col = 255; 
 	int count = 0;
-	public int countMatrices =0;
+
 	Boolean isFull = false;
 
 	//constructor
@@ -16,6 +16,8 @@ public class SquareCryptModel {
 
 	}
 	
+
+
 	public void makeNewModel(){
 		
 		matrix = new int[row][col];
@@ -43,7 +45,6 @@ public class SquareCryptModel {
 		
 		if(count ==255){
 			
-			countMatrices++;
 
 			return true;
 		}
@@ -78,11 +79,7 @@ public class SquareCryptModel {
 				
 				isFull = true;
 				count = 0;
-<<<<<<< HEAD
 
-=======
-				//makeNewModel();
->>>>>>> 65cb317e74fe966f4a304900025efc0fe1dc573d
 			}
 			
 			matrix[x][y] = count;

@@ -23,7 +23,8 @@ public class SquareCryptController extends JPanel{
 	
 	String str="";
 	SquareCryptModel model ;
-	
+	SquareCryptView view;
+
 	/**
 	 * @return the str
 	 */
@@ -109,12 +110,15 @@ public class SquareCryptController extends JPanel{
 				
 	}
 
-	public void saveImage(){
+	public void saveImage(int count){
 		//int imageCount = (int)Math.floor(Math.random()*2000);
+		 System.out.println("count " + count);
 		
-		String imageName = "image"+model.countMatrices+".png";
+		String imageName = "image"+count+".png";
 		
-		savedImage = new BufferedImage(this.getSize().width, this.getSize().height, BufferedImage.TYPE_INT_ARGB); 
+		
+		//savedImage = new BufferedImage(this.getSize().width, this.getSize().height, BufferedImage.TYPE_INT_ARGB);
+		savedImage = new BufferedImage(510, 255, BufferedImage.TYPE_INT_ARGB); 
 		
 		Graphics g = savedImage.createGraphics();
 		this.paint(g);  //this == JComponent
@@ -124,18 +128,22 @@ public class SquareCryptController extends JPanel{
 	}
 
 	
-	public void saveImages(){
+	public void saveImages(int count){
 		
         // Array of input images.
-        BufferedImage[] input = new BufferedImage[5];
+		System.out.println("count " +count);
+		//count must start at 1 and not 0 because we can't have array of size zero
+        BufferedImage[] input = new BufferedImage[count+1];
          
         // Load each input image.
         // Assume they are called "image_0.png", "image_1.png",
         // etc.
-        for ( int i = 0; i < input.length; i++ ) {
+        for ( int i = 1; i < input.length; i++ ) {
             try {
                 File f = new File( "image" + i + ".png" );
                 input[i] = ImageIO.read( f );
+                
+              System.out.println(f.getName());
             }
             catch ( IOException x ) {
                 // Complain if there is any problem loading 
@@ -149,7 +157,7 @@ public class SquareCryptController extends JPanel{
         // input image.  I had to specify the type
         // so it would keep it's transparency.
         BufferedImage output = new BufferedImage( 
-                1000, 
+                1020, 
                 1000, 
                 BufferedImage.TYPE_INT_ARGB );
          
@@ -159,7 +167,7 @@ public class SquareCryptController extends JPanel{
         int x=0,y =0;
         
         
-        for ( int i = 0; i < input.length; i++ ) {
+        for ( int i = 1; i < input.length; i++ ) {
         	
         	System.out.println("y " + y);
         	System.out.println("x " + x);
@@ -167,13 +175,13 @@ public class SquareCryptController extends JPanel{
             g.drawImage( input[i], x, y, null );
             
 
-			x += input[i].getWidth();
+			x += 510;
 
 			if(x > output.getWidth()){
 
 				x = 0;
 
-				y += input[i].getHeight();
+				y += 255;
 
 			}
         }
