@@ -36,6 +36,10 @@ public class SquareCryptView extends JPanel implements ActionListener{
 	//what string was passed to model?
 	//buffered image ,saves the whole panel. why?
 	//layout of controller images
+<<<<<<< HEAD
+=======
+	//change count to start from 1 ? for first letter
+>>>>>>> 02b231bcd48ee3d4400f12016e0e004ac85bfcd0
 	
 	JTextArea input = new JTextArea(20,20);
 
@@ -86,6 +90,8 @@ public class SquareCryptView extends JPanel implements ActionListener{
 		
 		JScrollPane scrollPane = new JScrollPane(panel);
 		
+		JScrollPane scrollPane = new JScrollPane(panel);
+		
 		imagePanel = new JPanel();
 		imagePanel.setLayout(new BoxLayout(imagePanel, BoxLayout.Y_AXIS));
 		//imagePanel.setLayout(new GridLayout(1,2));
@@ -114,6 +120,7 @@ public class SquareCryptView extends JPanel implements ActionListener{
 			autoUpdate();
 
 		}
+<<<<<<< HEAD
 		else if (buttonPressed.equals(clear)){
 
 			count = 0;
@@ -131,6 +138,42 @@ public class SquareCryptView extends JPanel implements ActionListener{
 			 count++;
             controller.saveImage(count);
 			controller.saveImages(count);
+=======
+		else if (buttonPressed.equals(goButton)){
+
+			in = input.getText();
+			
+			if(!model.isFull){
+
+				model.setMatrixIndecies(in);
+				controller.repaint();
+
+			}
+			else{
+				count++;
+				controller.saveImage(count);
+				System.out.println("inside else");
+				controller = new SquareCryptController();
+				
+				model = controller.getModel();
+//				model.setCountMatrices(count);
+
+				// model = new SquareCryptModel();
+				model.setMatrixIndecies(in);
+				validate();
+				//controller.getModel().getMatrixIndecies(in);
+				// System.out.println("in " + in);
+
+				imagePanel.add(controller);
+				controller.repaint();
+
+			}
+		}
+		else if (buttonPressed.equals(save)){
+			 
+           //controller.saveImage(count);
+			controller.saveImages(8);
+>>>>>>> 02b231bcd48ee3d4400f12016e0e004ac85bfcd0
 
 		}
 
@@ -216,4 +259,8 @@ public class SquareCryptView extends JPanel implements ActionListener{
 	}
 
 
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 02b231bcd48ee3d4400f12016e0e004ac85bfcd0
