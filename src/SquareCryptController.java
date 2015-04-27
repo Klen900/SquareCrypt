@@ -24,6 +24,7 @@ public class SquareCryptController extends JPanel{
 	String str="";
 	SquareCryptModel model ;
 	SquareCryptView view;
+	
 
 	/**
 	 * @return the str

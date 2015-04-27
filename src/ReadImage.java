@@ -6,8 +6,10 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 public class ReadImage {
+	
+	public String str ="";
 
-	public static void main(String[] args){
+	public void read(){
 
 		Chunkify chunkified1 = new Chunkify(0);
 		Chunkify chunkified2 = new Chunkify(256);
@@ -19,7 +21,7 @@ public class ReadImage {
 		chunkified3.run();
 		chunkified4.run();
 
-		String str ="";
+		
 		str= str+ chunkified1.getCharValue()+ chunkified2.getCharValue() + chunkified3.getCharValue()+chunkified4.getCharValue();
 		System.out.println(str);
 

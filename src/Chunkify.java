@@ -8,7 +8,7 @@ import javax.imageio.ImageIO;
 
 public class Chunkify extends Thread {
 
-	public int [] chars = new int[1000];
+	public int [] chars = new int[2040];//255*8 we can process up to  8 images that take 255 chars each
 
 	String str ="";
 
@@ -36,8 +36,8 @@ public class Chunkify extends Thread {
 
 
 		try {
-			bi = ImageIO.read(new File("result.png")); 
-
+			//bi = ImageIO.read(new File("result.png")); 
+			 bi = ImageIO.read(new File("images/theImage.png"));
 			int k=1;
 			int x,y=yStart, j=0;
 

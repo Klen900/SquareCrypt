@@ -4,13 +4,11 @@ import javax.swing.JFrame;
 
 public class SquareCryptApplication
 {
-	
 	/**
 	 * Start the game!
 	 * 
 	 * @param args
 	 */
-	
 	public static void main( String[] args )
 	{
 		
