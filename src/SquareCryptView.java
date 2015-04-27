@@ -23,287 +23,297 @@ import java.awt.event.ActionListener;
  *         *Top:
  *         The start button enables the recording of the user input, which changes the matrix values in the model & paints it in the controller
  *         *Center:
- *         After every 255 characters entered, the view creates a new controller with a new matrix and paints it.
+ *         After every 255 characters entered, the view creates a new controller with a new matrix and paints  them in a box layout.
  *         *South:
- * 
+ *         Here are the buttons with the different functionalities.
+ *               -Clear all: enables the deletion of the whole text and creates a whole new controller
+ *               -Save: saves the images created from the text in one big image that will then be able to be read by the script
+ *               -upload: lets the user upload any image created by the program so that it can be read
+ *               -read image:after the image is uploaded by the user, clicking the read image button will extract the text out of the image
+ *         
  * @author elkha22n
  *
  */
 
 public class SquareCryptView extends JPanel implements ActionListener{
 
-	//challenges
 
-	//which model is the controller talking to when creating the second one?
-
-	//pixel size
-
-	//delete was a challenge! because it was taking the last char instead of ...problem with count wasn't updating correctly
-
-	//what string was passed to model?
-
-	//buffered image ,saves the whole panel. why?
-
-	//layout of controller images
-
-
-	JTextArea input = new JTextArea();;
-
-	JButton auto; 
-
-	JButton clear;
-
-	JButton save;
-	
-	//button to upload image to read!!
-	JButton upload;
-	JButton read;
-	
-
-	JPanel panel = new JPanel();
-
-	JPanel anotherPanel;
-
-	JPanel imagePanel;
-	
+	//north panel
 	JTextArea title;
 	JTextArea instruction;
+	JButton start; 
+	JTextArea input = new JTextArea();
 
-	public int count =0; 
+	//center panel (consists of created controllers)
+	JPanel imagePanel;
 
+	//south buttons
+	JButton clear;
+	JButton save;
+	JButton upload;
+	JButton read;
+	JPanel southPanel;//where the south buttons are added
+
+	public int count =0; //counter the number of controllers that have been instantiated 
+
+	//instances from controller & model to create and paint the matrices
 	SquareCryptController controller = new SquareCryptController();
 	SquareCryptModel model = controller.getModel();
-	//constructor
 
+
+	//constructor
 	public SquareCryptView(){
 
 		mainPanel();
 
 	}
 
+	//the main panel that hold all the JComponents
 	public void mainPanel(){
-		
+
+		setLayout(new BorderLayout());
+
+		//set the background color to dark blue
 		setBackground(new Color(0,0,102));
-		
-	
-		
-		
+
+		/**
+		 * north panel:
+		 *    title + instruction + start button + input text area
+		 */
 		title = new JTextArea("                                 SquareCrypt");
 		instruction = new JTextArea("          Press Start and enter the text you want to encrypt!                               "
 				+ "When you are done typing, press save.");
-		
+
 		title.setEditable(false);
 		instruction.setEditable(false);
-	   
-		anotherPanel = new JPanel();
-
-		anotherPanel.setLayout(new BoxLayout(anotherPanel, BoxLayout.X_AXIS));
-
 		input.setLineWrap(true);
-		
-		//keep scrolling when input goes beyond the JTextArea height
-//		DefaultCaret caret = (DefaultCaret)input.getCaret();
-//		caret.setUpdatePolicy(DefaultCaret.OUT_BOTTOM);
-		JScrollPane jScrollPane=new JScrollPane(input);
-		auto = new JButton("Start");
-		
-		add(jScrollPane, BorderLayout.CENTER);
-        // arbitrary size to make vertical scrollbar appear
-        setSize(240, 240);
-        setVisible(true);
 
+		/**
+		 * center panel
+		 * holds the painted matrices
+		 */
+		imagePanel = new JPanel();
+		imagePanel.setLayout(new BoxLayout(imagePanel, BoxLayout.Y_AXIS));//the matrices get created on a vertical axis
+		imagePanel.add(controller);//add the white painted matrix to the panel
+		//set background to dark blue
+		imagePanel.setBackground(new Color(0,0,102));
 
-		auto.addActionListener(this);
+		/**
+		 * south panel
+		 *    buttons: save + clear all + upload image + read image
+		 */
+		southPanel = new JPanel();
+		southPanel.setLayout(new BoxLayout(southPanel, BoxLayout.X_AXIS));
 
-		
+		//start
+		start = new JButton("Start");
+		start.addActionListener(this);
+
+		//save
 		save = new JButton("Save");
-
 		save.addActionListener(this);
 
+		//clear
 		clear = new JButton("Clear All");
-
 		clear.addActionListener(this);
-		
+
+		//read
 		read = new JButton("Read Image!");
 		read.addActionListener(this);
-		
+
+		//upload
 		upload = new JButton("Upload Image");
 		upload.addActionListener(this);
-		
 
-		setLayout(new BorderLayout());
-		//**************************************
-		//set button color
+		/**
+		 * set button colors & style
+		 */
 		save.setBackground(Color.green);
 		save.setOpaque(true);
 		save.setBorderPainted(false);
-		
+
 		clear.setBackground(Color.RED);
 		clear.setOpaque(true);
 		clear.setBorderPainted(false);
-		 
+
 		upload.setBackground(Color.white);
 		upload.setOpaque(true);
 		upload.setBorderPainted(false);
-		
+
 		read.setBackground(Color.yellow);
 		read.setOpaque(true);
 		read.setBorderPainted(false);
-		
-		
 
-		anotherPanel.add(save);
-		anotherPanel.add(clear);
-		anotherPanel.add(upload);
-		anotherPanel.add(read);
-		
-		anotherPanel.setBackground(new Color(0,0,102));
-		//**************************************
+		//add the buttons to the south panel
+		southPanel.add(save);
+		southPanel.add(clear);
+		southPanel.add(upload);
+		southPanel.add(read);
 
-		imagePanel = new JPanel();
+		//set background to dark blue
+		southPanel.setBackground(new Color(0,0,102));
 
-		imagePanel.setLayout(new BoxLayout(imagePanel, BoxLayout.Y_AXIS));
-
-
-		imagePanel.add(controller);
-		imagePanel.setBackground(new Color(0,0,102));
-		
 		this.add(topText(),BorderLayout.NORTH);
-		//this.add(title,BorderLayout.NORTH);
 
 		this.add(imagePanel,BorderLayout.CENTER);
 
-		//this.add(controller,BorderLayout.CENTER);
-
-		this.add(anotherPanel,BorderLayout.SOUTH);
+		this.add(southPanel,BorderLayout.SOUTH);
 
 	}
-	
+
+	/**
+	 * combines:  titleText() & input area
+	 * @return
+	 */
+	public JPanel topText(){
+
+		JPanel panel = new JPanel();
+		panel.setLayout(new GridLayout(2,1));
+
+		input.setPreferredSize(new Dimension(510,50));
+		panel.setPreferredSize(new Dimension(510,200));
+
+		panel.add(titleText());//holds title, instruction and start button
+		panel.add(input);//input text area
+
+		return panel;
+	}
+
+	/**
+	 * titleText() combines title & instructionPanel()
+	 * @return
+	 */
 	public JPanel titleText(){
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridLayout(2,1));
 
-        title.setPreferredSize(new Dimension(510,5));
-		 Font font = new Font("Serif", Font.BOLD, 25);
-		 title.setFont(font);
-        title.setBackground(Color.yellow);
-   	    panel.add(title);
-        panel.add(instructionPanel());
-    	
-		
+		title.setPreferredSize(new Dimension(510,5));
+
+		Font font = new Font("Serif", Font.BOLD, 25);
+		title.setFont(font);
+		title.setBackground(Color.yellow);
+
+		panel.add(title);//SquareCrypt
+		panel.add(instructionPanel());//instruction + start button
+
+
 		return panel;
 	}
-	
-	//this panel holds the instruction sentence and the start button
+
+	/**
+	 * instructionPanel() holds the instruction sentence and the start button
+	 * @return
+	 */
 	public JPanel instructionPanel(){
-		 JPanel panel = new JPanel();
-		 Font font = new Font("Serif", Font.BOLD, 15);
-		 instruction.setFont(font);
-		 auto.setPreferredSize(new Dimension(80,10));
-    	 
-		 panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
-		 panel.add(instruction);
-		 panel.setBackground(new Color(0,0,102));
-		 instruction.setPreferredSize(new Dimension(430,10));
-		 instruction.setLineWrap(true);
-		 instruction.setBackground(new Color(0,0,102));
-		 instruction.setForeground(Color.white);
-		 
-			//set button color
-		 auto.setBackground(Color.yellow);
-		 auto.setOpaque(true);
-		 auto.setBorderPainted(false);
-			
-		 panel.add(auto);
-		 
-		 return panel;
+
+		JPanel panel = new JPanel();
+
+		//instruction style
+		Font font = new Font("Serif", Font.BOLD, 15);
+		instruction.setFont(font);
+		instruction.setLineWrap(true);
+		instruction.setBackground(new Color(0,0,102));
+		instruction.setForeground(Color.white);
+
+		//set size
+		start.setPreferredSize(new Dimension(80,10));
+		instruction.setPreferredSize(new Dimension(430,10));
+
+		//panel style
+		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
+		panel.setBackground(new Color(0,0,102));
+
+		//set button color
+		start.setBackground(Color.yellow);
+		start.setOpaque(true);
+		start.setBorderPainted(false);
+
+		//add components
+		panel.add(instruction);
+		panel.add(start);
+
+		return panel;
 	}
 
-    public JPanel topText(){
-    	
-    	 JPanel panel = new JPanel();
-    	 panel.setLayout(new GridLayout(2,1));
-    	 input.setPreferredSize(new Dimension(510,50));
-         panel.add(titleText());
-    	 panel.add(input);
-    	 panel.setPreferredSize(new Dimension(510,200));
-    	
-    	 
-    	return panel;
-    }
-    
-	//Handle the key-pressed event.
+	/**
+	 * Handle the key-pressed event of the buttons.
+	 */
 	public void actionPerformed(ActionEvent e){
 
 		JButton buttonPressed = (JButton) e.getSource();
 
-		String in;
+		if (buttonPressed.equals(start)){
 
-		if (buttonPressed.equals(auto)){
-
-			autoUpdate();
+			autoUpdate();//start updating the matrix as the user is typing
 
 		}
 
 		else if (buttonPressed.equals(clear)){
 
-			count = 0;
+			count = 0;//set the count of created matrices back to 0
 
-			input.setText("");
+			input.setText("");//clear the text area
 
-			model.clearAll();
+			model.clearAll();//changes all the indices to the matrix back to the default -1.
 
 			validate();
 
-			imagePanel.removeAll();
+			imagePanel.removeAll();//updates count and repaints the matrix
 
 			imagePanel.updateUI();
-
-			//controller.repaint();
 
 		}
 
 		else if (buttonPressed.equals(save)){
 
-			count++;
+			count++; //increment the count of matrices saved
+			
+			controller.saveImages(count);//save the images created in 1 big image that takes up to 8 matrices
 
-			controller.saveImage(count);
-
-			controller.saveImages(count);
+			controller.saveImage(count);// this saves the last matrix that doesn't get to 255 chars to be able to be saved
+			                            //automatically by the program
+                                        //the parameter count is needed for the image name : image +count.png
+			
 
 		}	else if(buttonPressed.equals(upload)){
-			FileChooserDemo upload1 = new FileChooserDemo();
-			 upload1.createAndShowGUI();
-			 upload1.getFile().getName();
-				
+			
+			FileChooserDemo upload1 = new FileChooserDemo();//open the file chooser to get the image we want to rad
+			
+			upload1.createAndShowGUI();
+			
+			upload1.getFile().getName();//get the image file name
 
 		}
 		else if(buttonPressed.equals(read)){
-			//pass the image to the controller!!
-			ReadImage reader = new ReadImage();
-			reader.read();
-			input.setText(reader.str);
 			
+			ReadImage reader = new ReadImage();//instance of Reader that takes in the image file chosen by the user
+			
+			reader.read();//synchronously read the image
+			
+			input.setText(reader.str);//display the extracted text in the textArea in the north panel
+
 		}
 
 	}
 
-
-
+	/**
+	 * getters and setters for count to access it from model & controller
+	 * @return
+	 */
 	public int getCount() {
-
 		return count;
-
 	}
-
 
 	public void setCount(int count) {
-
 		this.count = count;
-
 	}
 
 
+	/**
+	 * this method takes care of the real time update of the matrices on the view as the user is typing
+	 *             -insert update: paints the block with its RGB value from controller if character is inserted
+	 *             -removeUpdate: paints the block in white when char is deleted by user, also update sthe matrix in model   
+	 */
 	public void autoUpdate(){
 
 		input.getDocument().addDocumentListener(new DocumentListener(){
@@ -314,40 +324,36 @@ public class SquareCryptView extends JPanel implements ActionListener{
 
 			public void insertUpdate(DocumentEvent de) {
 
-				int textLngth = input.getText().length();
+				int textLngth = input.getText().length();//get the length of the string inputed
 
-				in = input.getText().substring(textLngth-1, textLngth);
+				in = input.getText().substring(textLngth-1, textLngth);//get the last character inserted
 
-				controller.setStr(in);
+				controller.setStr(in);//give that last char to the controller
 
+				if(!model.isFull){//if the matrix did not reach 255 chars
 
-				if(!model.isFull){
-
-
-					model.setMatrixIndecies(in);
-
-					controller.repaint();
-
+					model.setMatrixIndecies(in);//keep inserting the chars in the same matrix
+					controller.repaint();//update the display
 
 				}
 
-				else{
+				else{//if the model is full
 
-					count++;
+					count++;//increment the count of the created matrices
 
-					controller.saveImage(count);
+					controller.saveImage(count);//automatically save the previous painted matrix
 
-					System.out.println("inside else");
+					System.out.println("255 chars reached! painting new matrix...");
 
-					controller = new SquareCryptController();
+					controller = new SquareCryptController();//create new controller to paint new image
 
 					model = controller.getModel();
 
-					model.setMatrixIndecies(in);
+					model.setMatrixIndecies(in);//update its matrix with the user input
 
 					validate();
 
-					imagePanel.add(controller);
+					imagePanel.add(controller);//add the new controller to the panel
 
 					controller.repaint();
 
@@ -359,11 +365,10 @@ public class SquareCryptView extends JPanel implements ActionListener{
 
 			public void removeUpdate(DocumentEvent de) {
 
-				int textLngth = input.getText().length();
+				int textLngth = input.getText().length();//get the length of the string inputed
 
-				//search through for position text.Lngth()+1
-				//find last character and set it's matrix indecies to -1 (erase it)
-
+				//search for position text.Lngth()+1
+				//find last character and set it's matrix index to -1 (erase it)
 				for(int i=0; i<model.row; i++){
 
 					for(int j =0;j<model.col; j++ ){
@@ -376,22 +381,15 @@ public class SquareCryptView extends JPanel implements ActionListener{
 						}
 					}
 				}
+				model.count = model.count -1;//decrement the count of the inserted characters
 
-				//find x,y position of in
-
-				//change to 0
-
-				//repaint
-
-				model.count = model.count -1;
-				
 				controller.repaint();
 				validate();
 
 			}
 
 			@Override
-
+			//required method
 			public void changedUpdate(DocumentEvent de) {
 
 			}
